@@ -15,7 +15,16 @@ This repository contains demo files for SQL Server 2025
   - <a href="https://youtu.be/7nzS6j9n-Ts">**JSON_VALUE w SQL Server jak wyciągać wartości z JSON**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json01-json_value.sql">sqlserver2025-tsql-json01-json_value.sql</a>
   - <a href="https://youtu.be/hcp712Epqe0">**JSON_QUERY w SQL Server jak wyciągać obiekty i tablice z JSON**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json02-json_query.sql">sqlserver2025-tsql-json02-json_query.sql</a>
   - <a href="https://youtu.be/EBulFzwwwBM">**OPENJSON w SQL Server - jak rozbić JSON na wiersze (CROSS APPLY)**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json03-openjson.sql">sqlserver2025-tsql-json03-openjson.sql</a>
-  - <a href="">**soon: ISJSON**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
-  - <a href="">**soon: JSON_PATH_EXISTS**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
-  - <a href="">**soon: JSON_OBJECT**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
-  - <a href="">**soon: JSON_OBJECTAGG**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
+  - <a href="https://youtu.be/WknwjmsSmrM">**ISJSON w SQL Server — kiedy JSON jest poprawny, a kiedy nie?**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json04-isjson.sql">sqlserver2025-tsql-json04-isjson.sql</a>
+  - <a href="https://youtu.be/PglteDnXKMQ">**JSON_PATH_EXISTS w SQL Server — jak sprawdzić, czy ścieżka istnieje**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json05-json_path_exists.sql">sqlserver2025-tsql-json05-json_path_exists.sql</a>
+  - **JSON_CONTAINS w SQL Server 2025 — jak sprawdzić, czy JSON zawiera wartość** - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json06-json_contains.sql">sqlserver2025-tsql-json06-json_contains.sql</a>
+  - **JSON_MODIFY w SQL Server — aktualizacja, dodawanie i usuwanie**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json07-json_modify.sql">sqlserver2025-tsql-json07-json_modify.sql</a>
+  - **JSON_OBJECT w SQL Server — jak budować obiekt JSON z danych SQL**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json08-json_object.sql">sqlserver2025-tsql-json08-json_object.sql</a>
+  - **JSON_ARRAY w SQL Server — jak budować tablicę JSON z danych SQL**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
+  - **JSON_OBJECTAGG w SQL Server — jak budować obiekt JSON z wielu wierszy**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
+  - **JSON_ARRAYAGG w SQL Server — jak budować tablicę JSON z wielu wierszy**</a> - <a href="https://github.com/kursysql/SQL-Server-2025/blob/main/json/">soon</a>
+		
+
+
+
+
