@@ -33,7 +33,7 @@ This repository contains demo files for SQL Server 2025
   - **JSON_OBJECTAGG w SQL Server — jak budować obiekt JSON z wielu wierszy**</a> 
 	- [sqlserver2025-tsql-json10-json_objectagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json10-json_objectagg.sql)
   - **JSON_ARRAYAGG w SQL Server — jak budować tablicę JSON z wielu wierszy**</a> 
-	- [soon](https://github.com/kursysql/SQL-Server-2025/blob/main/json/)	
+	- [sqlserver2025-tsql-json11-json_arrayagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json11-json_arrayagg.sql)	
 ## REGEX
   - **REGEXP_LIKE w SQL Server 2025 — jak używać wyrażeń regularnych w T-SQL**
     - [sqlserver2025-tsql-regex01-regexp_like.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/regex/sqlserver2025-tsql-regex01-regexp_like.sql)
