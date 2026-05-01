@@ -62,14 +62,15 @@ DECLARE @SampleJSON nvarchar(max) = N'
 SELECT @SampleJSON AS OriginalJson;
 
 SELECT JSON_MODIFY(@SampleJSON, '$.Status', 6) AS UpdatedStatus;
-GO
 
 ---- strict - taki sam wynik
---SELECT JSON_MODIFY(@SampleJSON, 'strict $.Status', 6) AS UpdatedStatus;
---GO
+SELECT JSON_MODIFY(@SampleJSON, 'strict $.Status', 7) AS UpdatedStatus;
+GO
 
 -- więcej o strict w filmie: JSON_VALUE w SQL Server jak wyciągać wartości z JSON (9:28)
 -- https://www.youtube.com/watch?v=7nzS6j9n-Ts&t=568s
+
+
 
 /*
     -------------------------------------------------------------------
@@ -88,11 +89,11 @@ DECLARE @SampleJSON nvarchar(max) = N'
 SELECT @SampleJSON AS OriginalJson;
 
 SELECT JSON_MODIFY(@SampleJSON, '$.PromoCode', 'SQLDAY2026') AS AddedPromoCode;
-GO
 
----- strict - spowoduje błąd, bo PromoCode nie istnieje
---SELECT JSON_MODIFY(@SampleJSON, 'strict $.PromoCode', 'SQLDAY2026') AS AddedPromoCode;
---GO
+
+-- strict - spowoduje błąd, bo PromoCode nie istnieje
+SELECT JSON_MODIFY(@SampleJSON, 'strict $.PromoCode', 'SQLDAY2026') AS AddedPromoCode;
+GO
 
 
 
@@ -229,12 +230,48 @@ GO
     -------------------------------------------------------------------
 */
 
-SELECT TOP (10)
+SELECT 
     t.OrderID,
+    t.OrderDoc,
     JSON_MODIFY(t.OrderDoc, '$.Status', 10) AS ModifiedOrderDoc
 FROM DemoJson.OrderDocs_Text AS t
 ORDER BY t.OrderID;
 GO
+
+SELECT 
+    t.OrderID,
+    t.OrderDoc,
+    JSON_MODIFY(t.OrderDoc, '$.Status', 10) AS ModifiedOrderDoc
+INTO DemoJson.ModifiedOrderDocs_Text
+FROM DemoJson.OrderDocs_Text AS t
+ORDER BY t.OrderID;
+GO
+
+
+
+
+SELECT 
+    t.OrderID,
+    t.OrderDoc,
+    JSON_MODIFY(t.OrderDoc, '$.Status', 10) AS ModifiedOrderDoc
+FROM DemoJson.OrderDocs_Text AS t
+WHERE JSON_VALUE(t.OrderDoc, '$.Status') = 5
+ORDER BY t.OrderID;
+GO
+
+SELECT 
+    t.OrderID,
+    t.OrderDoc,
+    JSON_MODIFY(t.OrderDoc, '$.Status', 10) AS ModifiedOrderDoc
+INTO DemoJson.ModifiedOrderDocs_Json
+FROM DemoJson.OrderDocs_Json AS t
+ORDER BY t.OrderID;
+GO
+
+
+DROP TABLE IF EXISTS DemoJson.ModifiedOrderDocs_Text
+DROP TABLE IF EXISTS DemoJson.ModifiedOrderDocs_Json
+
 
 
 /*
@@ -275,7 +312,7 @@ SELECT JSON_MODIFY(@SampleJSON, 'strict $.Customer.Country', 'PL') AS CountryAdd
 GO
 
 
---- lax + NULL zwykle usuwa właściwość
+--- lax + NULL usuwa właściwość
 --- strict + NULL ustawia wartość null
 DECLARE @SampleJSON nvarchar(max) = N'
 {
