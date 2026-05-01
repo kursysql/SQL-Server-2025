@@ -26,7 +26,7 @@ This repository contains demo files for SQL Server 2025
 	- [sqlserver2025-tsql-json06-json_contains.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json06-json_contains.sql)
   - **[JSON_MODIFY w SQL Server — aktualizacja, dodawanie i usuwanie](https://youtu.be/uAQRT88ojg8)**
 	- [sqlserver2025-tsql-json07-json_modify.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json07-json_modify.sql)
-  - **JSON_OBJECT w SQL Server — jak budować obiekt JSON z danych SQL**
+  - **[JSON_OBJECT w SQL Server — jak budować obiekt JSON z danych SQL](https://youtu.be/yEp9LBAP1Y8)**
 	- [sqlserver2025-tsql-json08-json_object.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json08-json_object.sql)
   - **JSON_ARRAY w SQL Server — jak budować tablicę JSON z danych SQL**
 	- [soon](https://github.com/kursysql/SQL-Server-2025/blob/main/json/)

@@ -22,6 +22,13 @@
     - można kontrolować obsługę wartości NULL:
       NULL ON NULL / ABSENT ON NULL
 
+    1. Prosty obiekt JSON
+    2. NULL ON NULL vs ABSENT ON NULL
+    3. Zmienne i wyrażenia SQL
+    4. Obiekt JSON z danych z tabeli
+    5. Zagnieżdżanie JSON_OBJECT i JSON_ARRAY
+    6. RETURNING json w SQL Server 2025
+
     Dokumentacja:
     https://learn.microsoft.com/en-us/sql/t-sql/functions/json-object-transact-sql?view=sql-server-ver17
 
@@ -33,7 +40,7 @@ GO
 
 /*
     -------------------------------------------------------------------
-    1. Zacznijmy od prostego przykładu
+    1. Prosty obiekt JSON
     - JSON_OBJECT tworzy obiekt JSON
     - można podać zero, jedną albo wiele par klucz:wartość
     -------------------------------------------------------------------
@@ -71,7 +78,7 @@ DROP TABLE IF EXISTS DemoJson.JsonObjectExample
 
 /*
     -------------------------------------------------------------------
-    2. JSON_OBJECT i NULL
+    2. NULL ON NULL vs ABSENT ON NULL
     - można zdecydować, co zrobić z wartościami NULL
     - NULL ON NULL = klucz zostaje z wartością null
     - ABSENT ON NULL = klucz jest pomijany
@@ -95,7 +102,8 @@ SELECT JSON_OBJECT(
   'OrderDate':'2022-05-30T00:00:00',
   'Status':NULL,
   'OnlineOrder':CAST(0 AS bit),
-  'SalesPersonID':NULL NULL ON NULL
+  'SalesPersonID':NULL 
+  NULL ON NULL
 ) AS OrderDoc_NullOnNull;
 GO
 
@@ -106,7 +114,8 @@ SELECT JSON_OBJECT(
   'OrderDate':'2022-05-30T00:00:00',
   'Status':NULL,
   'OnlineOrder':CAST(0 AS bit),
-  'SalesPersonID':NULL ABSENT ON NULL
+  'SalesPersonID':NULL 
+  ABSENT ON NULL
 ) AS OrderDoc_AbsentOnNull;
 GO
 
@@ -114,7 +123,7 @@ GO
 
 /*
     -------------------------------------------------------------------
-    3. JSON_OBJECT z wyrażeniami i zmiennymi
+    3. Zmienne i wyrażenia SQL
     - klucze i wartości mogą pochodzić ze zmiennych albo wyrażeń SQL
     -------------------------------------------------------------------
 */
@@ -125,22 +134,24 @@ DECLARE @id_value nvarchar(50) = CONVERT(nvarchar(50), NEWID());
 SELECT JSON_OBJECT(
     'user_name':USER_NAME(),
     @id_key:@id_value,
-    'spid':@@SPID
+    'spid':@@SPID,
+    'current date':GETDATE()
 ) AS ObjectFromExpressions;
 GO
 
 
 /*
     -------------------------------------------------------------------
-    4. JSON_OBJECT z danymi z tabeli
+    4. Obiekt JSON z danych z tabeli
     - budowanie prostego obiektu JSON na podstawie kolumn
     -------------------------------------------------------------------
 */
 
-
-
 SELECT TOP 5
     SalesOrderID,
+    OrderDate,
+    Status,
+    OnlineOrderFlag,
     JSON_OBJECT(
        'OrderID':SalesOrderID,
        'OrderDate':OrderDate,
@@ -164,7 +175,7 @@ GO
 
 /*
     -------------------------------------------------------------------
-    5. JSON_OBJECT i zagnieżdżanie
+    5. Zagnieżdżanie JSON_OBJECT i JSON_ARRAY
     - można budować bardziej złożone struktury JSON
     - JSON_ARRAY i JSON_OBJECT można ze sobą łączyć
     -------------------------------------------------------------------
@@ -252,11 +263,18 @@ GO
 
 /*
     -------------------------------------------------------------------
-    6. JSON_OBJECT i RETURNING json
+    6. RETURNING json w SQL Server 2025
     - wynik można zwrócić jako typ json
     - to ma sens szczególnie w SQL Server 2025
     -------------------------------------------------------------------
 */
+
+
+
+
+DROP TABLE IF EXISTS DemoJson.JsonObjectExample1;
+DROP TABLE IF EXISTS DemoJson.JsonObjectExample2;
+
 
 
 SELECT TOP 5
