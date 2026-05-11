@@ -26,7 +26,7 @@
     3. Kolejność elementów i tablica na grupę
     4. Zagnieżdżona tablica bez FOR JSON PATH
     5. NULL ON NULL vs ABSENT ON NULL
-    6. RETURNING json w SQL Server 2025
+    6. RETURNING 
 
     Dokumentacja:
     https://learn.microsoft.com/en-us/sql/t-sql/functions/json-arrayagg-transact-sql?view=sql-server-ver17

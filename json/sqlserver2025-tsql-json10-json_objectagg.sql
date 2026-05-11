@@ -24,7 +24,7 @@
     2. JSON_OBJECT vs JSON_OBJECTAGG — statyczne vs dynamiczne klucze
     3. JSON_OBJECTAGG + JSON_OBJECT — zagnieżdżanie obiektów JSON
     4. NULL ON NULL vs ABSENT ON NULL
-    5. RETURNING json w SQL Server 2025
+    5. RETURNING
 
     Dokumentacja:
     https://learn.microsoft.com/en-us/sql/t-sql/functions/json-objectagg-transact-sql?view=sql-server-ver17
