@@ -1,7 +1,6 @@
 /*
 
-    TSQL: JSON_VALUE wydajność - indeksy JSON
-    - Hidden tables
+    SQL Server 2025: Indeksy JSON
 
     Tomasz Libera | MVP Data Platform
     libera@kursysql.pl
@@ -17,6 +16,27 @@ USE AdventureWorks2025
 GO
 
 SET STATISTICS IO ON
+
+
+/*    
+    1. Twozenie indeksu JSON
+*/
+
+
+
+
+
+
+/*    
+    1. Twozenie indeksu JSON
+*/
+
+
+
+
+/*    
+    X. Struktura wewnętrzna indkesu
+*/
 
 
 SELECT * FROM DemoJson.OrderDocs_Json_Indexed
