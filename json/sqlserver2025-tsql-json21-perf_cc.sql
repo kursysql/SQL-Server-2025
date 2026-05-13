@@ -1,6 +1,6 @@
 /*
 
-    TSQL: JSON_VALUE wydajność - computed columns i indeksy
+    SQL Server 2025: JSON - wydajność - computed columns i indeksy
     Tomasz Libera | MVP Data Platform
     libera@kursysql.pl
 
@@ -110,7 +110,7 @@ SELECT * FROM DemoJson.OrderDocs_Text
 WHERE City1 = 'Denver'
 GO
 
--- magia computed columns i indeksów
+-- "magia" computed columns i indeksów
 -- mimo że w zapytaniu nie ma bezpośrednio City1, 
 -- to i tak jest ono używane, bo optymalizator jest sprytny
 SELECT * FROM DemoJson.OrderDocs_Text
@@ -165,7 +165,7 @@ SELECT * FROM DemoJson.OrderDocs_Json
 WHERE City1 = 'Denver'
 GO
 
--- magia computed columns i indeksów
+-- "magia" computed columns i indeksów
 -- mimo że w zapytaniu nie ma bezpośrednio City1, 
 -- to i tak jest ono używane, bo optymalizator jest sprytny
 SELECT * FROM DemoJson.OrderDocs_Json
