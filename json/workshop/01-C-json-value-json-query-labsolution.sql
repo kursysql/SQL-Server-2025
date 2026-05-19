@@ -296,3 +296,67 @@ GO
  ORDER BY OrderID;
  GO
 
+
+
+ /* ============================================================
+   Odpowiedzi na pytania kontrolne
+   ============================================================
+
+   1. Do czego służy JSON_VALUE?
+
+      JSON_VALUE służy do odczytu pojedynczej wartości skalarnej
+      z dokumentu JSON, np. tekstu, liczby, daty lub wartości logicznej.
+
+   2. Do czego służy JSON_QUERY?
+
+      JSON_QUERY służy do odczytu fragmentu JSON, który jest obiektem
+      albo tablicą.
+
+   3. Dlaczego JSON_VALUE nie nadaje się do odczytu obiektu JSON?
+
+      Ponieważ JSON_VALUE oczekuje wartości skalarnej. Obiekt JSON nie jest
+      wartością skalarną, więc w trybie lax funkcja zwykle zwróci NULL,
+      a w trybie strict może zgłosić błąd.
+
+   4. Dlaczego JSON_VALUE nie nadaje się do odczytu tablicy JSON?
+
+      Tablica JSON również nie jest wartością skalarną. Do odczytu całej
+      tablicy jako fragmentu JSON służy JSON_QUERY, a do rozbicia jej
+      na wiersze służy OPENJSON.
+
+   5. Jak odczytać pierwszy element tablicy JSON?
+
+      Można użyć indeksu tablicy w ścieżce JSON, np.:
+
+          JSON_VALUE(OrderDoc, '$.Items[0].ProductID')
+
+      Indeksowanie zaczyna się od 0.
+
+   6. Czym różni się tryb lax od strict?
+
+      lax jest trybem domyślnym i zwykle zwraca NULL, gdy ścieżka nie istnieje
+      albo nie pasuje do oczekiwanego typu. strict jest bardziej rygorystyczny
+      i w takich sytuacjach może zakończyć zapytanie błędem.
+
+   7. Dlaczego przy filtrowaniu i sortowaniu po liczbach warto wykonać konwersję typu?
+
+      JSON_VALUE zwraca wartość tekstową. Bez konwersji sortowanie i porównania
+      mogą działać jak na tekście, a nie jak na liczbach. Dlatego warto używać
+      np. TRY_CONVERT(decimal(19,4), JSON_VALUE(...)).
+
+   8. Czy funkcje JSON_VALUE i JSON_QUERY działają zarówno na nvarchar(max), jak i na typie json?
+
+      Tak, składnia podstawowych zapytań jest bardzo podobna. Różnice są
+      istotniejsze przy typie json, RETURNING, indeksach JSON i wydajności.
+
+   9. Czy ścieżki JSON są wrażliwe na wielkość liter?
+
+      W praktyce trzeba traktować nazwy właściwości w ścieżkach jako wrażliwe
+      na wielkość liter. Jeśli w dokumencie jest Customer, ścieżka $.customer
+      nie wskazuje tej samej właściwości.
+
+   10. Dlaczego odczytanie Items[0] nie rozwiązuje problemu odczytu wszystkich pozycji zamówienia?
+
+      Ponieważ Items[0] odczytuje tylko pierwszy element tablicy. Do pracy
+      ze wszystkimi elementami tablicy używamy OPENJSON.
+*/

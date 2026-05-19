@@ -391,3 +391,58 @@ GO
    - JSON_PATH_EXISTS,
    - JSON_CONTAINS.
    ============================================================ */
+
+
+
+/* ============================================================
+   Odpowiedzi na pytania kontrolne
+   ============================================================
+
+   1. Do czego służy OPENJSON?
+
+      OPENJSON zamienia obiekt albo tablicę JSON na zestaw wierszy.
+
+   2. Jakie trzy kolumny zwraca OPENJSON bez klauzuli WITH?
+
+      key, value, type.
+
+   3. Co oznacza kolumna key dla tablicy JSON?
+
+      Indeks elementu tablicy. Indeksowanie zaczyna się od 0.
+
+   4. Po co używamy klauzuli WITH w OPENJSON?
+
+      Żeby zmapować właściwości JSON na konkretne kolumny SQL i nadać im
+      odpowiednie typy danych.
+
+   5. Dlaczego warto nadawać typy danych kolumnom w klauzuli WITH?
+
+      Dzięki temu można od razu pracować na typach SQL, np. int, decimal,
+      money, date, zamiast na tekście.
+
+   6. Do czego służy CROSS APPLY w połączeniu z OPENJSON?
+
+      Pozwala uruchomić OPENJSON dla każdego wiersza tabeli, np. dla każdego
+      dokumentu zamówienia.
+
+   7. Czym różni się JSON_QUERY(OrderDoc, '$.Items') od OPENJSON(OrderDoc, '$.Items')?
+
+      JSON_QUERY zwraca całą tablicę jako JSON. OPENJSON rozbija tę tablicę
+      na wiersze.
+
+   8. Dlaczego odczyt Items[0], Items[1] itd. nie jest dobrym rozwiązaniem dla raportowania?
+
+      Bo liczba elementów tablicy może być zmienna. OPENJSON obsługuje dowolną
+      liczbę elementów i zwraca je jako wiersze.
+
+   9. Jak policzyć liczbę elementów tablicy JSON?
+
+      Można użyć OPENJSON i COUNT(*), np.:
+
+          SELECT COUNT(*) FROM OPENJSON(OrderDoc, '$.Items')
+
+   10. Jak połączyć dane z głównego dokumentu JSON z elementami tablicy?
+
+      Dane z głównego dokumentu można odczytać przez JSON_VALUE, a tablicę
+      rozbić przez OPENJSON w CROSS APPLY.
+*/
