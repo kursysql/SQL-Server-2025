@@ -315,3 +315,136 @@ GO
    W kolejnej części przechodzimy do:
    - JSON_MODIFY.
    ============================================================ */
+
+
+
+
+/* ============================================================
+   Odpowiedzi na pytania kontrolne
+   ============================================================
+
+   1. Do czego służy ISJSON?
+
+      ISJSON służy do sprawdzania, czy podany tekst jest poprawnym
+      dokumentem JSON albo poprawną wartością JSON określonego typu.
+
+      Przykład:
+
+          ISJSON(OrderDoc)
+
+
+   2. Co zwraca ISJSON, gdy tekst nie jest poprawnym JSON?
+
+      Funkcja ISJSON zwraca 0, jeżeli tekst nie jest poprawnym JSON.
+
+      Jeżeli argument wejściowy jest NULL, wynik również może być NULL.
+
+
+   3. Do czego służy drugi argument funkcji ISJSON?
+
+      Drugi argument pozwala sprawdzić oczekiwany typ JSON.
+
+      Przykłady:
+
+          ISJSON(JsonText, VALUE)
+          ISJSON(JsonText, OBJECT)
+          ISJSON(JsonText, ARRAY)
+          ISJSON(JsonText, SCALAR)
+
+      Dzięki temu można odróżnić np. obiekt JSON od tablicy JSON
+      albo wartości skalarnej.
+
+
+   4. Do czego służy JSON_PATH_EXISTS?
+
+      JSON_PATH_EXISTS służy do sprawdzania, czy w dokumencie JSON
+      istnieje wskazana ścieżka.
+
+      Przykład:
+
+          JSON_PATH_EXISTS(OrderDoc, '$.Customer.CustomerID')
+
+
+   5. Czy JSON_PATH_EXISTS odczytuje wartość ze ścieżki?
+
+      Nie. JSON_PATH_EXISTS nie zwraca wartości spod wskazanej ścieżki.
+
+      Funkcja odpowiada tylko na pytanie:
+
+          czy taka ścieżka istnieje?
+
+      Jeżeli chcemy odczytać wartość, używamy np. JSON_VALUE.
+      Jeżeli chcemy odczytać obiekt albo tablicę, używamy JSON_QUERY.
+
+
+   6. Do czego służy JSON_CONTAINS?
+
+      JSON_CONTAINS służy do sprawdzania, czy dokument JSON zawiera
+      konkretną wartość we wskazanej ścieżce.
+
+      Przykład:
+
+          JSON_CONTAINS(OrderDoc, N'US', '$.Shipping.CountryRegionCode')
+
+      Można go używać m.in. do sprawdzania wartości tekstowych,
+      liczbowych oraz wartości występujących w tablicach JSON.
+
+
+   7. Czym różni się JSON_PATH_EXISTS od JSON_CONTAINS?
+
+      JSON_PATH_EXISTS sprawdza istnienie ścieżki.
+
+      Przykład:
+
+          Czy dokument ma pole $.Shipping.CountryRegionCode?
+
+      JSON_CONTAINS sprawdza, czy pod wskazaną ścieżką znajduje się
+      konkretna wartość.
+
+      Przykład:
+
+          Czy $.Shipping.CountryRegionCode ma wartość US?
+
+      Czyli:
+
+          JSON_PATH_EXISTS -> czy pole istnieje
+          JSON_CONTAINS   -> czy pole zawiera określoną wartość
+
+
+   8. Po co używamy wildcarda [*] przy tablicach JSON?
+
+      Wildcard [*] oznacza wszystkie elementy tablicy JSON.
+
+      Przykład:
+
+          $.Items[*].ProductID
+
+      oznacza:
+
+          sprawdź ProductID w każdym elemencie tablicy Items
+
+      Bez wildcarda ścieżka nie wskazuje poprawnie właściwości
+      znajdującej się wewnątrz elementów tablicy.
+
+
+   9. Jak sprawdzić, czy w tablicy Items istnieje dowolny ProductID?
+
+      Można użyć JSON_PATH_EXISTS ze ścieżką zawierającą wildcard:
+
+          JSON_PATH_EXISTS(OrderDoc, '$.Items[*].ProductID')
+
+      Wynik 1 oznacza, że przynajmniej jeden element tablicy Items
+      ma właściwość ProductID.
+
+
+   10. Jak sprawdzić, czy w tablicy Items występuje konkretny ProductID?
+
+      Można użyć JSON_CONTAINS ze ścieżką zawierającą wildcard.
+
+      Przykład dla ProductID = 776:
+
+          JSON_CONTAINS(OrderDoc, 776, '$.Items[*].ProductID') = 1
+
+      Taki warunek sprawdza, czy w dowolnym elemencie tablicy Items
+      występuje ProductID o wartości 776.
+*/

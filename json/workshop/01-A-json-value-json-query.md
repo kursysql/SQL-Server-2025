@@ -49,9 +49,9 @@ Skrypty demonstracyjne z repozytorium:
 - [`sqlserver2025-tsql-json01-json_value.sql`](../sqlserver2025-tsql-json01-json_value.sql)
 - [`sqlserver2025-tsql-json02-json_query.sql`](../sqlserver2025-tsql-json02-json_query.sql)
 
-Skrypt demo do tej części warsztatu:
+Skrypt lab do samodzielnego wykonania:
 
-- [`01-B-json-value-json-query-demo.sql`](01-B-json-value-json-query-demo.sql)
+- [`01-B-json-value-json-query-lab.sql`](01-B-json-value-json-query-lab.sql)
 
 Rozwiązania zadań:
 

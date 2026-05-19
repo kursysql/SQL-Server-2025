@@ -216,3 +216,164 @@ GO
    - indeksów JSON,
    - wydajności.
    ============================================================ */
+
+
+/* ============================================================
+   Odpowiedzi na pytania kontrolne
+   ============================================================
+
+   1. Do czego służy JSON_OBJECT?
+
+      JSON_OBJECT służy do tworzenia obiektu JSON z par klucz/wartość.
+
+      Przykład:
+
+          SELECT JSON_OBJECT(
+              'ProductID': 776,
+              'Name': N'Mountain-100 Black, 42'
+          ) AS ProductJson;
+
+      Wynikiem jest obiekt JSON.
+
+
+   2. Do czego służy JSON_ARRAY?
+
+      JSON_ARRAY służy do tworzenia tablicy JSON z podanych wartości.
+
+      Przykład:
+
+          SELECT JSON_ARRAY(N'SQL Server', N'JSON', N'T-SQL') AS JsonArray;
+
+      Wynikiem jest tablica JSON.
+
+
+   3. Czym różni się JSON_ARRAY od JSON_ARRAYAGG?
+
+      JSON_ARRAY tworzy tablicę z wartości podanych w jednym wywołaniu.
+
+      Przykład:
+
+          JSON_ARRAY(N'SQL Server', N'JSON', N'T-SQL')
+
+      JSON_ARRAYAGG jest funkcją agregującą i tworzy tablicę z wartości
+      pochodzących z wielu wierszy.
+
+      Przykład:
+
+          SELECT JSON_ARRAYAGG(Name)
+          FROM Production.Product;
+
+
+   4. Czym różni się JSON_OBJECT od JSON_OBJECTAGG?
+
+      JSON_OBJECT tworzy pojedynczy obiekt JSON z podanych par klucz/wartość.
+
+      Przykład:
+
+          JSON_OBJECT('ProductID': 776, 'Name': N'Bike')
+
+      JSON_OBJECTAGG jest funkcją agregującą i tworzy obiekt JSON
+      na podstawie wielu wierszy, gdzie jedna kolumna może być kluczem,
+      a druga wartością.
+
+      Przykład:
+
+          JSON_OBJECTAGG(ProductID: Name)
+
+
+   5. Do czego służy JSON_OBJECTAGG?
+
+      JSON_OBJECTAGG służy do tworzenia obiektu JSON z wielu wierszy.
+
+      Najczęstszy scenariusz to przygotowanie mapy / słownika.
+
+      Przykład:
+
+          ProductID -> Name
+
+      czyli wynik w stylu:
+
+          {
+            "776": "Mountain-100 Black, 42",
+            "777": "Mountain-100 Black, 44"
+          }
+
+
+   6. Jak wymusić kolejność elementów w JSON_ARRAYAGG?
+
+      W JSON_ARRAYAGG można użyć ORDER BY wewnątrz agregacji.
+
+      Przykład:
+
+          JSON_ARRAYAGG(Name ORDER BY Name DESC)
+
+      Dzięki temu kolejność elementów w wynikowej tablicy JSON jest
+      kontrolowana przez zapytanie.
+
+
+   7. Jaka jest różnica między NULL ON NULL i ABSENT ON NULL?
+
+      NULL ON NULL oznacza, że wartości NULL zostaną zapisane w JSON
+      jako jawne null.
+
+      Przykład:
+
+          {"Color": null}
+
+      ABSENT ON NULL oznacza, że właściwość albo element z wartością NULL
+      zostanie pominięty w wyniku.
+
+      Przykład:
+
+          zamiast {"Color": null}
+          otrzymamy obiekt bez właściwości Color.
+
+
+   8. Jakie jest domyślne zachowanie NULL dla JSON_OBJECT?
+
+      Dla JSON_OBJECT domyślne zachowanie to NULL ON NULL.
+
+      Czyli właściwość z wartością NULL pojawi się w wyniku jako JSON-owe null.
+
+      Przykład:
+
+          JSON_OBJECT('ProductID': 776, 'Color': NULL)
+
+      zwróci obiekt zawierający:
+
+          "Color": null
+
+
+   9. Jakie jest domyślne zachowanie NULL dla JSON_ARRAY?
+
+      Dla JSON_ARRAY domyślne zachowanie to ABSENT ON NULL.
+
+      Czyli wartość NULL jest domyślnie pomijana w tablicy.
+
+      Przykład:
+
+          JSON_ARRAY(N'SQL Server', NULL, N'JSON')
+
+      domyślnie zwróci tablicę bez elementu NULL.
+
+      Jeżeli chcemy zachować null w tablicy, można użyć:
+
+          JSON_ARRAY(N'SQL Server', NULL, N'JSON' NULL ON NULL)
+
+
+   10. Do czego służy RETURNING json?
+
+      RETURNING json pozwala zwrócić wynik funkcji generującej JSON
+      jako natywny typ json, a nie jako zwykły tekst.
+
+      Przykład:
+
+          JSON_OBJECT(
+              'ProductID': 776,
+              'Name': N'Mountain-100 Black, 42'
+              RETURNING json
+          )
+
+      Jest to szczególnie istotne w scenariuszach związanych z typem json,
+      dalszym przetwarzaniem dokumentów oraz indeksowaniem JSON.
+*/

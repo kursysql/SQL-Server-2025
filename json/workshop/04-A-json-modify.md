@@ -50,9 +50,13 @@ Skrypt demonstracyjny z repozytorium:
 
 - [`sqlserver2025-tsql-json07-json_modify.sql`](../sqlserver2025-tsql-json07-json_modify.sql)
 
+Skrypt lab do samodzielnego wykonania:
+
+- [`04-B-json-modify-lab.sql`](04-B-json-modify-lab.sql)
+
 Rozwiązania zadań:
 
-- [`04-B-json-modify-labsolution.sql`](04-B-json-modify-labsolution.sql)
+- [`04-C-json-modify-labsolution.sql`](04-C-json-modify-labsolution.sql)
 
 Wymagany setup:
 

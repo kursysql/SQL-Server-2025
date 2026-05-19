@@ -299,3 +299,140 @@ GO
 
    W kolejnej części przechodzimy do generowania JSON.
    ============================================================ */
+
+
+
+/* ============================================================
+   Odpowiedzi na pytania kontrolne
+   ============================================================
+
+   1. Do czego służy JSON_MODIFY?
+
+      JSON_MODIFY służy do punktowej modyfikacji dokumentu JSON.
+
+      Za jego pomocą można między innymi:
+
+      - zmienić wartość istniejącej właściwości,
+      - dodać nową właściwość,
+      - usunąć właściwość,
+      - zmienić wartość w obiekcie zagnieżdżonym,
+      - zmienić element tablicy,
+      - dodać nowy element do tablicy.
+
+
+   2. Czy JSON_MODIFY zmienia dokument automatycznie, czy zwraca nowy dokument?
+
+      JSON_MODIFY zwraca nowy, zmodyfikowany dokument JSON.
+
+      Samo wywołanie funkcji nie zmienia automatycznie zmiennej ani kolumny.
+
+      Przykład ze zmienną:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.Status', N'Cancelled');
+
+      Przykład z tabelą:
+
+          UPDATE DemoJson.OrderDocs_Text
+          SET OrderDoc = JSON_MODIFY(OrderDoc, '$.Status', N'Cancelled')
+          WHERE OrderID = 43672;
+
+
+   3. Jak zmienić wartość istniejącej właściwości?
+
+      Należy wskazać ścieżkę do właściwości i podać nową wartość.
+
+      Przykład:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.Status', N'Cancelled');
+
+      Dla właściwości zagnieżdżonej:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.Customer.CustomerType', N'VIP');
+
+
+   4. Jak dodać nową właściwość?
+
+      W trybie domyślnym, czyli lax, jeżeli wskazana ścieżka nie istnieje,
+      JSON_MODIFY może dodać nową właściwość.
+
+      Przykład:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.WorkshopSource', N'KursySQL');
+
+      Można też dodać właściwość do istniejącego obiektu:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.Shipping.DeliveryMethod', N'Courier');
+
+
+   5. Jak usunąć właściwość w trybie lax?
+
+      W trybie lax ustawienie wartości na NULL usuwa właściwość z dokumentu.
+
+      Przykład:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, 'lax $.SalesPersonID', NULL);
+
+      W praktyce można też spotkać zapis bez jawnego lax, ponieważ lax
+      jest trybem domyślnym:
+
+          SET @OrderDoc = JSON_MODIFY(@OrderDoc, '$.SalesPersonID', NULL);
+
+
+   6. Dlaczego przy dodawaniu obiektu JSON warto użyć JSON_QUERY?
+
+      Jeżeli do JSON_MODIFY przekażemy tekst wyglądający jak JSON,
+      SQL Server może potraktować go jak zwykły tekst i uciec znaki
+      specjalne.
+
+      Żeby wstawić obiekt JSON jako prawdziwy fragment JSON, a nie jako
+      tekst, warto użyć JSON_QUERY.
+
+      Przykład:
+
+          SET @OrderDoc = JSON_MODIFY(
+              @OrderDoc,
+              '$.Audit',
+              JSON_QUERY(N'{
+                "ModifiedBy": "Workshop",
+                "Reason": "JSON_MODIFY demo"
+              }')
+          );
+
+
+   7. Do czego służy append w ścieżce JSON_MODIFY?
+
+      append służy do dodawania nowego elementu na końcu tablicy JSON.
+
+      Przykład:
+
+          SET @OrderDoc = JSON_MODIFY(
+              @OrderDoc,
+              'append $.Items',
+              JSON_QUERY(N'{
+                "ProductID": 999,
+                "Name": "Workshop Product",
+                "OrderQty": 1
+              }')
+          );
+
+      W tym przykładzie nowy obiekt zostanie dodany jako kolejny element
+      tablicy Items.
+
+
+   8. Czy zmiana Items[0].UnitPrice automatycznie przelicza Items[0].LineTotal?
+
+      Nie.
+
+      JSON_MODIFY wykonuje tylko punktową zmianę wskazanej ścieżki.
+
+      Jeżeli zmienimy:
+
+          $.Items[0].UnitPrice
+
+      to SQL Server nie przeliczy automatycznie:
+
+          $.Items[0].LineTotal
+
+      Jeżeli LineTotal ma się zmienić, trzeba zaktualizować go osobnym
+      wywołaniem JSON_MODIFY albo przebudować odpowiedni fragment dokumentu.
+*/

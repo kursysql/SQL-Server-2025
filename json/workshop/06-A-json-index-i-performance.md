@@ -13,8 +13,6 @@
 - [Metadane indeksów JSON](#metadane-indeksów-json)
 - [Zapytania, które mogą skorzystać z indeksu JSON](#zapytania-które-mogą-skorzystać-z-indeksu-json)
 - [Demo](#demo)
-- [Zadania do wykonania](#zadania-do-wykonania)
-- [Pytania kontrolne](#pytania-kontrolne)
 - [Co dalej?](#co-dalej)
 
 ---
@@ -53,10 +51,6 @@ Skrypty demonstracyjne z repozytorium:
 - [`sqlserver2025-tsql-json23-json_index_internal.sql`](../sqlserver2025-tsql-json23-json_index_internal.sql)
 - [`sqlserver2025-tsql-json24-perf-json_sql25cu4.sql`](../sqlserver2025-tsql-json24-perf-json_sql25cu4.sql)
 - [`sqlserver2025-tsql-json25-perf-json_azureSQL.sql`](../sqlserver2025-tsql-json25-perf-json_azureSQL.sql)
-
-Rozwiązania zadań:
-
-- [`06-B-json-index-i-performance-labsolution.sql`](06-B-json-index-i-performance-labsolution.sql)
 
 Wymagany setup:
 
@@ -272,23 +266,6 @@ Do części demonstracyjnej używamy skryptów z repozytorium:
 - [`sqlserver2025-tsql-json23-json_index_internal.sql`](../sqlserver2025-tsql-json23-json_index_internal.sql)
 - [`sqlserver2025-tsql-json24-perf-json_sql25cu4.sql`](../sqlserver2025-tsql-json24-perf-json_sql25cu4.sql)
 - [`sqlserver2025-tsql-json25-perf-json_azureSQL.sql`](../sqlserver2025-tsql-json25-perf-json_azureSQL.sql)
-
----
-
-## Pytania kontrolne
-
-1. Dlaczego samo przechowywanie JSON w kolumnie nie rozwiązuje problemów wydajnościowych?
-2. Do czego służą computed columns przy pracy z JSON?
-3. Dlaczego warto rzutować wartości z `JSON_VALUE` na konkretne typy danych?
-4. Kiedy podejście z computed columns może być dobrym rozwiązaniem?
-5. Do czego służy `CREATE JSON INDEX`?
-6. Na jakim typie kolumny tworzony jest indeks JSON?
-7. Dlaczego tabela z indeksem JSON musi mieć klastrowany klucz główny?
-8. Jak sprawdzić metadane indeksu JSON?
-9. Czym różni się indeks JSON od indeksu na computed column?
-10. Jakie funkcje JSON mogą pojawić się w zapytaniach korzystających z indeksu JSON?
-11. Po co używać `RETURNING` w `JSON_VALUE`?
-12. Dlaczego przy testach wydajności warto patrzeć nie tylko na czas, ale też na plan i IO?
 
 ---
 

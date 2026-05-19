@@ -53,9 +53,13 @@ Skrypty demonstracyjne z repozytorium:
 - [`sqlserver2025-tsql-json05-json_path_exists.sql`](../sqlserver2025-tsql-json05-json_path_exists.sql)
 - [`sqlserver2025-tsql-json06-json_contains.sql`](../sqlserver2025-tsql-json06-json_contains.sql)
 
+Skrypt lab do samodzielnego wykonania:
+
+- [`03-B-walidacja-sciezki-i-wyszukiwanie-lab.sql`](03-B-walidacja-sciezki-i-wyszukiwanie-lab.sql)
+
 Rozwiązania zadań:
 
-- [`03-B-walidacja-sciezki-i-wyszukiwanie-labsolution.sql`](03-B-walidacja-sciezki-i-wyszukiwanie-labsolution.sql)
+- [`03-C-walidacja-sciezki-i-wyszukiwanie-labsolution.sql`](03-C-walidacja-sciezki-i-wyszukiwanie-labsolution.sql)
 
 Wymagany setup:
 

@@ -52,25 +52,29 @@ Dzięki temu po warsztacie można wrócić do pominiętych fragmentów.
 
 ## Konwencja nazw plików
 
-Każdy rozdział warsztatu składa się z dwóch plików w folderze `workshop`:
+Każda część warsztatu może składać się z trzech plików:
 
 | Plik | Znaczenie |
 |---|---|
-| `XX-A-*.md` | główny materiał warsztatowy: opis, linki do demo i zadania |
-| `XX-C-*-labsolution.sql` | przykładowe rozwiązania zadań |
+| `XX-A-*.md` | opis części, krótkie wprowadzenie, linki do demo i lista zadań |
+| `XX-B-*-lab.sql` | plik roboczy dla uczestnika, zawierający polecenia zadań i miejsca na kod |
+| `XX-C-*-labsolution.sql` | przykładowe rozwiązania zadań oraz odpowiedzi na pytania kontrolne |
+
 
 Przykład:
 
 ```text
 01-A-json-value-json-query.md
-01-B-json-value-json-query-labsolution.sql
+01-B-json-value-json-query-lab.sql
+01-C-json-value-json-query-labsolution.sql
 ```
 
 Dzięki takiej konwencji pliki układają się alfabetycznie w kolejności pracy:
 
 ```text
 A - materiał do przeczytania i zadania
-B - rozwiązania zadań
+B - plik roboczy dla uczestnika
+C - przykładowe rozwiązania zadań
 ```
 
 ---

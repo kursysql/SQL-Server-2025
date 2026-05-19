@@ -50,9 +50,9 @@ Skrypt demonstracyjny z repozytorium:
 
 - [`sqlserver2025-tsql-json03-openjson.sql`](../sqlserver2025-tsql-json03-openjson.sql)
 
-Skrypt demo do tej części warsztatu:
+Skrypt lab do samodzielnego wykonania:
 
-- [`02-B-openjson-demo.sql`](02-B-openjson-demo.sql)
+- [`02-B-openjson-lab.sql`](02-B-openjson-lab.sql)
 
 Rozwiązania zadań:
 
@@ -412,9 +412,6 @@ Utwórz zmienną z prostym obiektem JSON:
 
 Następnie użyj `OPENJSON`, aby zobaczyć wynik domyślny.
 
-```sql
--- Twoje rozwiązanie
-```
 
 ---
 
@@ -444,7 +441,7 @@ type
 
 ---
 
-## Zadanie 7. Zmapuj pozycje zamówienia na kolumny
+### Zadanie 7. Zmapuj pozycje zamówienia na kolumny
 
 Dla wybranego zamówienia użyj `OPENJSON` z klauzulą `WITH`.
 
@@ -513,10 +510,6 @@ ProductID = 776
 ```
 
 Jeżeli taki produkt nie występuje w Twoich danych, użyj innej wartości znalezionej w poprzednich wynikach.
-
-```sql
--- Twoje rozwiązanie
-```
 
 ---
 

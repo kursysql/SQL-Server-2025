@@ -76,13 +76,13 @@ sqlserver2025-tsql-json03-openjson.sql
 
 | Część | Temat | Materiał | Lab | Rozwiązania |
 |---|---|---|---|---|
-| 00 | Przygotowanie środowiska | [`00-A-przygotowanie-srodowiska.md`](00-A-przygotowanie-srodowiska.md) | [`00-B-przygotowanie-srodowiska-lab.sql`](00-B-przygotowanie-srodowiska-lab.sql) | [`00-C-przygotowanie-srodowiska-labsolution.sql`](00-C-przygotowanie-srodowiska-labsolution.sql) |
+| 00 | Przygotowanie środowiska | [`00-A-przygotowanie-srodowiska.md`](00-A-przygotowanie-srodowiska.md) | | |
 | 01 | `JSON_VALUE` i `JSON_QUERY` | [`01-A-json-value-json-query.md`](01-A-json-value-json-query.md) | [`01-B-json-value-json-query-lab.sql`](01-B-json-value-json-query-lab.sql) | [`01-C-json-value-json-query-labsolution.sql`](01-C-json-value-json-query-labsolution.sql) |
 | 02 | `OPENJSON` | [`02-A-openjson.md`](02-A-openjson.md) | [`02-B-openjson-lab.sql`](02-B-openjson-lab.sql) | [`02-C-openjson-labsolution.sql`](02-C-openjson-labsolution.sql) |
 | 03 | Walidacja, ścieżki i wyszukiwanie | [`03-A-walidacja-sciezki-i-wyszukiwanie.md`](03-A-walidacja-sciezki-i-wyszukiwanie.md) | [`03-B-walidacja-sciezki-i-wyszukiwanie-lab.sql`](03-B-walidacja-sciezki-i-wyszukiwanie-lab.sql) | [`03-C-walidacja-sciezki-i-wyszukiwanie-labsolution.sql`](03-C-walidacja-sciezki-i-wyszukiwanie-labsolution.sql) |
 | 04 | `JSON_MODIFY` | [`04-A-json-modify.md`](04-A-json-modify.md) | [`04-B-json-modify-lab.sql`](04-B-json-modify-lab.sql) | [`04-C-json-modify-labsolution.sql`](04-C-json-modify-labsolution.sql) |
 | 05 | Generowanie JSON | [`05-A-generowanie-json.md`](05-A-generowanie-json.md) | [`05-B-generowanie-json-lab.sql`](05-B-generowanie-json-lab.sql) | [`05-C-generowanie-json-labsolution.sql`](05-C-generowanie-json-labsolution.sql) |
-| 06 | Typ `json`, indeksy i wydajność | [`06-A-json-index-i-performance.md`](06-A-json-index-i-performance.md) | [`06-B-json-index-i-performance-lab.sql`](06-B-json-index-i-performance-lab.sql) | [`06-C-json-index-i-performance-labsolution.sql`](06-C-json-index-i-performance-labsolution.sql) |
+| 06 | Typ `json`, indeksy i wydajność | [`06-A-json-index-i-performance.md`](06-A-json-index-i-performance.md) |  |  |
 
 ---
 

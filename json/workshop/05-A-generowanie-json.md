@@ -63,9 +63,13 @@ Skrypty demonstracyjne z repozytorium:
 - [`sqlserver2025-tsql-json10-json_objectagg.sql`](../sqlserver2025-tsql-json10-json_objectagg.sql)
 - [`sqlserver2025-tsql-json11-json_arrayagg.sql`](../sqlserver2025-tsql-json11-json_arrayagg.sql)
 
+Skrypt lab do samodzielnego wykonania:
+
+- [`05-B-generowanie-json-lab.sql`](05-B-generowanie-json-lab.sql)
+
 Rozwiązania zadań:
 
-- [`05-B-generowanie-json-labsolution.sql`](05-B-generowanie-json-labsolution.sql)
+- [`05-C-generowanie-json-labsolution.sql`](05-C-generowanie-json-labsolution.sql)
 
 Wymagany setup:
 
