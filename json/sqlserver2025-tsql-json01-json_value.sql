@@ -1,6 +1,6 @@
 /*
 	TSQL: JSON_VALUE 
-	Tomasz Lbera | MVP Data Platform
+	Tomasz Libera | MVP Data Platform
 	libera@kursysql.pl
 	
     http://www.kursysql.pl

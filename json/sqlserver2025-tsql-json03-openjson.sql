@@ -1,7 +1,7 @@
 /*
 
 	TSQL: OPENJSON 
-	Tomasz Lbera | MVP Data Platform
+	Tomasz Libera | MVP Data Platform
 	libera@kursysql.pl
 	
     http://www.kursysql.pl
@@ -27,6 +27,7 @@
     6. Alternatywa: PIVOT (niezalecana)
 
 */
+
 
 
 
