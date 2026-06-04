@@ -30,10 +30,20 @@ This repository contains demo files for SQL Server 2025
 	- [sqlserver2025-tsql-json08-json_object.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json08-json_object.sql)
   - **[JSON_ARRAY w SQL Server — jak budować tablicę JSON z danych SQL](https://youtu.be/NbetWnHRmTM)**
 	- [sqlserver2025-tsql-json09-json_array.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json09-json_array.sql)
-  - **JSON_OBJECTAGG w SQL Server — jak budować obiekt JSON z wielu wierszy**</a> 
+  - **[JSON_OBJECTAGG w SQL Server — jak budować obiekt JSON z wielu wierszy](https://youtu.be/TipHlYrmNJ4)**</a> 
 	- [sqlserver2025-tsql-json10-json_objectagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json10-json_objectagg.sql)
-  - **JSON_ARRAYAGG w SQL Server — jak budować tablicę JSON z wielu wierszy**</a> 
+  - **[JSON_ARRAYAGG w SQL Server — jak budować tablicę JSON z wielu wierszy](https://youtu.be/QfaUwgTl3GM)**</a> 
 	- [sqlserver2025-tsql-json11-json_arrayagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json11-json_arrayagg.sql)	
+  - **JSON w SQL Server — jak przyspieszyć zapytania starym sposobem (computed columns + indeksy)**</a> 
+	- [sqlserver2025-tsql-json21-perf_cc.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json21-perf_cc.sql)	
+  - **Indeksy JSON w SQL Server 2025 - jak działają i czego nie obsługują**</a> 
+	- [sqlserver2025-tsql-json22-json_index.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json22-json_index.sql)	
+  - **Indeksy JSON w SQL Server 2025 — co jest w środku?**</a> 
+	- [sqlserver2025-tsql-json23-json_index_internal.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json23-json_index_internal.sql)	
+  - **Indeksy JSON: SQL Server 2025 plany wykonania**</a> 
+	- [sqlserver2025-tsql-json24-perf-json_sql25cu4.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json24-perf-json_sql25cu4.sql)	
+	
+
 ## REGEX
   - **REGEXP_LIKE w SQL Server 2025 — jak używać wyrażeń regularnych w T-SQL**
     - [sqlserver2025-tsql-regex01-regexp_like.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/regex/sqlserver2025-tsql-regex01-regexp_like.sql)
