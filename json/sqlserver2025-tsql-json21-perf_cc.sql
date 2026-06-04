@@ -9,6 +9,12 @@
     https://github.com/kursysql/SQL-Server-2025/
 
 
+    1. JSON_VALUE i kolumna tekstowa City (json w nvarchar)
+    2. JSON_VALUE i kolumna tekstowa City (typ json)
+    3. JSON_VALUE i kolumna CutomerID (json w nvarchar)
+    4. JSON_VALUE i kolumna CutomerID (int), natywny typ JSON
+
+
 */
 
 
@@ -124,7 +130,7 @@ GO
 
 /*
     
-    2. JSON_VALUE i kolumna tekstowa City
+    2. JSON_VALUE i kolumna tekstowa City (typ json)
     - json zapisany w typie danych JSON (native JSON data type)
 
 */
@@ -289,7 +295,7 @@ GO
 
 /*
     
-    JSON_VALUE i kolumna CutomerID (int)
+    4. JSON_VALUE i kolumna CutomerID (int), natywny typ JSON
     - json zapisany w typie danych JSON (native JSON data type)
     - test RETURNING
 

@@ -55,6 +55,11 @@ SELECT *
 FROM DemoJson.OrderDocs_Json_Indexed
 WHERE JSON_VALUE(OrderDoc, '$.Shipping.City') = 'Denver';
 
+-- tak działa 
+SELECT *
+FROM DemoJson.OrderDocs_Json_Indexed
+WHERE JSON_CONTAINS(OrderDoc, 'Denver', '$.Shipping.City') = 1;
+
 
 
 

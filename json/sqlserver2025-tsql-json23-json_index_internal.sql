@@ -68,18 +68,18 @@ LEFT JOIN sys.json_index_paths AS jip ON ji.index_id = jip.index_id AND ji.objec
 SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
 
 -- sys.json_index_{object_id}_{index_id},
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.json_index_2080726465_1216000
 
 
 -- pokaż wiersze z SalesPersonID = 274
 -- wersja A
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.json_index_2080726465_1216000
 WHERE sql_value = 274
 
 
 SELECT od.*
 FROM DemoJson.OrderDocs_Json_Indexed AS od
-JOIN sys.json_index_452196661_1216000 AS ji ON ji.posting_1 = od.OrderID
+JOIN sys.json_index_2080726465_1216000 AS ji ON ji.posting_1 = od.OrderID
 WHERE ji.sql_value = 274
 
 
@@ -134,7 +134,7 @@ SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
 
 
 
-SELECT * FROM sys.json_index_836198029_1216000
+SELECT * FROM sys.json_index_13243102_1216000
 
 
 
@@ -175,7 +175,7 @@ LEFT JOIN sys.json_index_paths AS jip ON ji.index_id = jip.index_id AND ji.objec
 SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
 
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.json_index_2080726465_1216000
 
 
 
@@ -217,12 +217,15 @@ FOR
 
 
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
+
+
+SELECT * FROM sys.json_index_2080726465_1216000
 
 
 
 /*    
-    5. Tablica w indeksie JSON - optymalizacja dla wyszukiwania w tablicach (OPTIMIZE_FOR_ARRAY_SEARCH = ON)
+    5. Tablica w indeksie JSON 
 */
 
 
@@ -269,17 +272,21 @@ WHERE OrderID = 43660
 
 */
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
+
+
+
+SELECT * FROM sys.json_index_2080726465_1216000
 WHERE posting_1 = 43660
 
 
-DROP TABLE IF EXISTS #tmp_json_index_452196661_1216000_items
+DROP TABLE IF EXISTS #tmp_json_index_2080726465_1216000_items
 
 SELECT * 
-INTO #tmp_json_index_452196661_1216000_items
-FROM sys.json_index_452196661_1216000
+INTO #tmp_json_index_2080726465_1216000_items
+FROM sys.json_index_2080726465_1216000
 
-
+SELECT * FROM #tmp_json_index_2080726465_1216000_items
 
 
 
@@ -302,10 +309,13 @@ FOR
 WITH (OPTIMIZE_FOR_ARRAY_SEARCH = ON)
 
 
+SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
 
-SELECT * FROM #tmp_json_index_452196661_1216000_items
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM #tmp_json_index_2080726465_1216000_items
+WHERE posting_1 = 43660
+
+SELECT * FROM sys.json_index_2080726465_1216000
 WHERE posting_1 = 43660
 
 
@@ -327,7 +337,10 @@ CREATE JSON INDEX IXJ_OrderDocs_Json_Indexed_OrderDoc
 ON DemoJson.OrderDocs_Json_Indexed (OrderDoc)
 
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
+
+
+SELECT * FROM sys.json_index_2080726465_1216000
 
 
 
@@ -355,7 +368,10 @@ GO
 
 
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
+
+
+SELECT * FROM sys.json_index_2080726465_1216000
 
 
 

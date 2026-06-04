@@ -40,9 +40,6 @@ EXEC sp_spaceused 'DemoJson.OrderDocs_Json_Indexed'
 
 
 
-DROP INDEX IF EXISTS IXJ_OrderDocs_Json_Indexed_OrderDoc
-ON DemoJson.OrderDocs_Json_Indexed
-GO
 
 -- indeks na wszystkich węzłach
 CREATE JSON INDEX IXJ_OrderDocs_Json_Indexed_OrderDoc

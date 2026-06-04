@@ -1,7 +1,7 @@
 /*
 
     SQL Server 2025: Indeksy JSON - użycie w zapytaniach
-    - wersja SQL Server 2025
+    - wersja SQL Server 2025 CU4
 
     Tomasz Libera | MVP Data Platform
     libera@kursysql.pl
@@ -181,12 +181,12 @@ LEFT JOIN sys.json_index_paths AS jip ON ji.index_id = jip.index_id
 
 SELECT * FROM sys.objects WHERE type = 'IT' ORDER BY create_date DESC
 
-SELECT * FROM sys.json_index_452196661_1216000
+SELECT * FROM sys.json_index_221243843_1216000
 
 
 SELECT od.*
 FROM DemoJson.OrderDocs_Json_Indexed AS od
-JOIN sys.json_index_452196661_1216000 AS ji ON ji.posting_1 = od.OrderID
+JOIN sys.json_index_221243843_1216000 AS ji ON ji.posting_1 = od.OrderID
 WHERE ji.sql_value = 'Denver'
 
 
@@ -462,6 +462,8 @@ WHERE JSON_VALUE(OrderDoc, '$.Items[9].ProductID') = 744
 SELECT * FROM DemoJson.OrderDocs_Json_Indexed
 WHERE JSON_CONTAINS(OrderDoc, 744, '$.Items[*].ProductID') = 1
 
+SELECT * FROM DemoJson.OrderDocs_Json_Indexed
+WHERE JSON_CONTAINS(OrderDoc, 744, '$.Items[9].ProductID') = 1
 
 
 
