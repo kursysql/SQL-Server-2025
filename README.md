@@ -10,6 +10,7 @@ This repository contains demo files for SQL Server 2025
   - **[Czy warto aktualizować do SSMS 22.5? 7 zmian, które warto znać](https://youtu.be/iulNFzgf3NA)**
 
 ## JSON
+  - **[Warsztaty](https://github.com/kursysql/SQL-Server-2025/tree/main/json/workshop)** - materiały do praktycznych warsztatów poświęconych pracy z JSON w SQL Server 2025.  
   - **Przygotowanie danych**
     - [sqlserver2025-tsql-json00-SETUP.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json00-SETUP.sql)
   - **[JSON_VALUE w SQL Server jak wyciągać wartości z JSON](https://youtu.be/7nzS6j9n-Ts)**

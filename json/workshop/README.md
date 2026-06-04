@@ -1,6 +1,8 @@
 <a href="https://www.kursysql.pl"><img src="https://www.kursysql.pl/wp-content/uploads/2022/03/Frame-3.png" title="KursySQL.pl" alt="KursySQL.pl"></a>
 
 # Warsztaty JSON w SQL Server 2025
+![Warsztaty JSON](https://www.kursysql.pl/wp-content/uploads/2026/05/4_warsztaty_z_json-p1iildn-768x461.png)
+
 
 Materiały do praktycznych warsztatów poświęconych pracy z JSON w SQL Server 2025.
 
