@@ -6,6 +6,7 @@
 	
     http://www.kursysql.pl
     http://www.youtube.com/c/KursySQL
+    https://github.com/kursysql/SQL-Server-2025/
 
     Funkcja REGEXP_LIKE
     sprawdza, czy tekst pasuje do wzorca wyrażenia regularnego

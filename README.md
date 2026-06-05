@@ -35,13 +35,13 @@ This repository contains demo files for SQL Server 2025
 	- [sqlserver2025-tsql-json10-json_objectagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json10-json_objectagg.sql)
   - **[JSON_ARRAYAGG w SQL Server — jak budować tablicę JSON z wielu wierszy](https://youtu.be/QfaUwgTl3GM)**</a> 
 	- [sqlserver2025-tsql-json11-json_arrayagg.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json11-json_arrayagg.sql)	
-  - **JSON w SQL Server — jak przyspieszyć zapytania starym sposobem (computed columns + indeksy)**</a> 
+  - **[JSON w SQL Server — jak przyspieszyć zapytania starym sposobem (computed columns + indeksy)](https://youtu.be/vWy0oK9s3tU)**</a> 
 	- [sqlserver2025-tsql-json21-perf_cc.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json21-perf_cc.sql)	
-  - **Indeksy JSON w SQL Server 2025 - jak działają i czego nie obsługują**</a> 
+  - **[Indeksy JSON w SQL Server 2025 - jak działają i czego nie obsługują](https://youtu.be/AR8U_HaXEXU)**</a> 
 	- [sqlserver2025-tsql-json22-json_index.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json22-json_index.sql)	
-  - **Indeksy JSON w SQL Server 2025 — co jest w środku?**</a> 
+  - **[Indeksy JSON w SQL Server 2025 — co jest w środku?](https://youtu.be/o3BaNAUEURE)**</a> 
 	- [sqlserver2025-tsql-json23-json_index_internal.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json23-json_index_internal.sql)	
-  - **Indeksy JSON: SQL Server 2025 plany wykonania**</a> 
+  - **[Indeksy JSON: SQL Server 2025 plany wykonania](https://youtu.be/HadmOkScezg)**</a> 
 	- [sqlserver2025-tsql-json24-perf-json_sql25cu4.sql](https://github.com/kursysql/SQL-Server-2025/blob/main/json/sqlserver2025-tsql-json24-perf-json_sql25cu4.sql)	
 	
 
