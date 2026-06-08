@@ -1,14 +1,11 @@
 
 /*
-	TSQL: JSON Demo setup
+    TSQL: REGEX: Cleanup danych demo
 	Tomasz Lbera | MVP Data Platform
 	libera@kursysql.pl
     
-    Ten skrypt usuwa polskie dane z AdventureWorks2025:
-    - Osoby z Polski
-    - Adresy z polskimi kodami pocztowymi
-    - Polskie województwa
-    - Kraj: Polska (PL)
+    Ten skrypt usuwa tabele demo utworzone przez:
+    sqlserver2025-tsql-regex00-SETUP.sql
 
     http://www.kursysql.pl
     http://www.youtube.com/c/KursySQL
@@ -20,101 +17,41 @@
 USE AdventureWorks2025;
 GO
 
-PRINT '=== Usuwanie polskich danych z AdventureWorks2025 ===';
+SET NOCOUNT ON;
 GO
 
--- ============================================
--- 1. Usunięcie polskich osób i ich powiązań
--- ============================================
-PRINT '1. Usuwanie polskich osób...';
-
--- Znajdź BusinessEntityID dla osób z Polski
-DECLARE @PolishPersonIDs TABLE (BusinessEntityID INT);
-
-INSERT INTO @PolishPersonIDs
-SELECT DISTINCT p.BusinessEntityID
-FROM Person.Person p
-INNER JOIN Person.BusinessEntityAddress bea ON p.BusinessEntityID = bea.BusinessEntityID
-INNER JOIN Person.Address a ON bea.AddressID = a.AddressID
-INNER JOIN Person.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
-WHERE sp.CountryRegionCode = 'PL';
-
--- Usuń EmailAddress
-DELETE FROM Person.EmailAddress
-WHERE BusinessEntityID IN (SELECT BusinessEntityID FROM @PolishPersonIDs);
-
--- Usuń BusinessEntityAddress
-DELETE FROM Person.BusinessEntityAddress
-WHERE BusinessEntityID IN (SELECT BusinessEntityID FROM @PolishPersonIDs);
-
--- Usuń Person
-DELETE FROM Person.Person
-WHERE BusinessEntityID IN (SELECT BusinessEntityID FROM @PolishPersonIDs);
-
--- Usuń BusinessEntity
-DELETE FROM Person.BusinessEntity
-WHERE BusinessEntityID IN (SELECT BusinessEntityID FROM @PolishPersonIDs);
-
-PRINT '- Polskie osoby i ich powiązania usunięte';
+PRINT '=== Usuwanie tabel demo ze schematu DemoRegex ===';
 GO
 
--- ============================================
--- 2. Usunięcie polskich adresów
--- ============================================
-PRINT '2. Usuwanie polskich adresów...';
-
-DELETE FROM Person.Address
-WHERE StateProvinceID IN (
-    SELECT StateProvinceID 
-    FROM Person.StateProvince 
-    WHERE CountryRegionCode = 'PL'
-);
-
-PRINT '- Polskie adresy usunięte';
+DROP TABLE IF EXISTS DemoRegex.EmailAddress;
+DROP TABLE IF EXISTS DemoRegex.BusinessEntityAddress;
+DROP TABLE IF EXISTS DemoRegex.Person;
+DROP TABLE IF EXISTS DemoRegex.BusinessEntity;
+DROP TABLE IF EXISTS DemoRegex.Address;
+DROP TABLE IF EXISTS DemoRegex.StateProvince;
+DROP TABLE IF EXISTS DemoRegex.PersonPhone;
 GO
 
--- ============================================
--- 3. Usunięcie polskich województw
--- ============================================
-PRINT '3. Usuwanie polskich województw...';
-
-DELETE FROM Person.StateProvince
-WHERE CountryRegionCode = 'PL';
-
-PRINT '- Polskie województwa usunięte';
-GO
-
-
-
--- ============================================
--- 5. Weryfikacja usunięcia
--- ============================================
-PRINT '5. Weryfikacja usunięcia...';
-PRINT '';
-
--- Sprawdź czy zostały jakieś polskie dane
-DECLARE @RemainingCount INT = 0;
-
-SELECT @RemainingCount = COUNT(*)
-FROM Person.StateProvince
-WHERE CountryRegionCode = 'PL';
-
-IF @RemainingCount = 0
-    PRINT '- Wszystkie polskie dane zostały usunięte';
+IF EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'DemoRegex')
+   AND NOT EXISTS (
+        SELECT 1
+        FROM sys.objects
+        WHERE schema_id = SCHEMA_ID('DemoRegex')
+   )
+BEGIN
+    DROP SCHEMA DemoRegex;
+    PRINT '- Schemat DemoRegex usunięty';
+END
+ELSE IF EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'DemoRegex')
+BEGIN
+    PRINT '- Schemat DemoRegex nie został usunięty, bo zawiera jeszcze inne obiekty';
+END
 ELSE
-    PRINT '!!! UWAGA: Znaleziono ' + CAST(@RemainingCount AS VARCHAR(10)) + ' pozostałych polskich rekordów!';
-
+BEGIN
+    PRINT '- Schemat DemoRegex nie istnieje';
+END
 GO
-
-
-DROP SCHEMA DemoRegex
-GO
-
-
-
 
 PRINT '';
 PRINT '=== Cleanup zakończony! ===';
 GO
-
-
