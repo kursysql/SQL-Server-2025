@@ -16,6 +16,9 @@
     
     zwraca BIT (1/0)
     
+    Dokumentacja:
+    https://learn.microsoft.com/en-us/sql/t-sql/functions/regexp-like-transact-sql?view=sql-server-ver17
+
     Agenda:
     1. LIKE vs REGEXP_LIKE - podstawy
     2. Składnia regex - podstawowe elementy (start, koniec, cyfry, powtórzenia)
@@ -23,12 +26,6 @@
     5. Walidacja adresów e-mail
     6. Walidacja numerów telefonów
     7. Walidacja kodów pocztowych
-
-
-    Dokumentacja:
-    https://learn.microsoft.com/en-us/sql/t-sql/functions/regexp-like-transact-sql?view=sql-server-ver17
-
-    
 
 */
 
