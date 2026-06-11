@@ -52,6 +52,14 @@ BEGIN
 END
 GO
 
+
+DROP TABLE IF EXISTS #Emails;
+GO
+
+
 PRINT '';
 PRINT '=== Cleanup zakończony! ===';
 GO
+
+
+

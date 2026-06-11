@@ -46,6 +46,10 @@ DROP TABLE IF EXISTS DemoRegex.Person;
 DROP TABLE IF EXISTS DemoRegex.BusinessEntity;
 DROP TABLE IF EXISTS DemoRegex.Address;
 DROP TABLE IF EXISTS DemoRegex.StateProvince;
+DROP TABLE IF EXISTS DemoRegex.PersonPhone;
+DROP TABLE IF EXISTS DemoRegex.Emails;
+GO
+
 GO
 
 SELECT *
@@ -452,3 +456,44 @@ GO
 
 --SELECT * FROM DemoRegex.Person ORDER BY BusinessEntityID DESC;
 --SELECT * FROM DemoRegex.Address ORDER BY AddressID DESC;
+
+
+
+
+-- ============================================
+-- 5. Dodatkowe adresy e-mail 
+-- ============================================
+PRINT '5. Dodatkowe adresy e-mail...';
+PRINT '';
+
+
+
+CREATE TABLE DemoRegex.Emails
+(
+    EmailAddress varchar(100)
+);
+GO
+
+INSERT INTO DemoRegex.Emails (EmailAddress)
+VALUES
+('jan.kowalski@gmail.com'),
+('anna.nowak@wp.pl'),
+('marek@test.com'),
+('ewa@test.com.pl'),
+('biuro@firma.pl'),
+('kontakt@kursysql.pl'),
+('admin@adventure-works.com'),
+('support@contoso.com'),
+('sales@northwind.com'),
+('info@test.org'),
+('user123@gmail.com'),
+('dev.team@github.io'),
+('office@firma.com.pl'),
+('helpdesk@company.co.uk'),
+('test@test.net'),
+('marketing@my-company.eu'),
+('service@subdomain.domain.pl'),
+('noreply@azure.microsoft.com'),
+('it@university.edu'),
+('hello@startup.io');
+GO
