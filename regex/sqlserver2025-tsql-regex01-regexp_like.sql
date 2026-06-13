@@ -14,7 +14,7 @@
     Składnia:
     REGEXP_LIKE ( expression, pattern [, match_parameter] )
     
-    zwraca BIT (1/0)
+    zwraca True/False
     
     Dokumentacja:
     https://learn.microsoft.com/en-us/sql/t-sql/functions/regexp-like-transact-sql?view=sql-server-ver17
@@ -36,6 +36,7 @@ GO
 -- ============================================
 -- 1. LIKE vs REGEXP_LIKE — podstawy
 -- ============================================
+
 
 -- LIKE: Prosta składnia, ograniczone możliwości
 SELECT 
@@ -59,12 +60,8 @@ WHERE REGEXP_LIKE(EmailAddress, '@adventure-works\.com$')
 ORDER BY LastName;
 GO
 
--- Ctrl+M
--- wydajnościowo REGEXP_LIKE jest w tym konkretnym przypadku szybszy:
--- REGEXP_LIKE jest ~5x szybszy (17% vs 83%)
--- Kotwica $ w regex jest efektywniejsza niż LIKE '%...'
--- RE2 ma lepsze optymalizacje dla tego typu wzorców
--- ale to zależy od wzorca i danych, więc zawsze testuj na swoim środowisku!
+
+
 
 
 
@@ -82,23 +79,6 @@ GO
 SELECT ProductID, Name, ProductNumber
 FROM Production.Product
 WHERE REGEXP_LIKE(ProductNumber, '^BK-[A-Z]\d+[A-Z]?-\d+$')
-ORDER BY ProductNumber;
-GO
-
-
--- Porównanie: LIKE vs REGEXP_LIKE dla różnych wzorców
-SELECT 
-    ProductNumber,
-    CASE 
-        WHEN ProductNumber LIKE 'BK-%' THEN 'LIKE: Bike'
-        ELSE 'LIKE: Other'
-    END AS LIKE_Result,
-    CASE 
-        WHEN REGEXP_LIKE(ProductNumber, '^BK-[A-Z]\d+') THEN 'REGEX: Bike (strict)'
-        ELSE 'REGEX: Other'
-    END AS REGEX_Result
-FROM Production.Product
-WHERE ProductNumber LIKE 'BK-%'
 ORDER BY ProductNumber;
 GO
 
@@ -126,18 +106,28 @@ GO
 -- [^] = negacja klasy znaków, np. [^0-9]
 
 -- Przykład: kod pocztowy 5 cyfr
-SELECT TOP 5 AddressLine1, City, PostalCode
+SELECT AddressLine1, City, PostalCode
 FROM DemoRegex.Address
 WHERE REGEXP_LIKE(PostalCode, '^\d{5}$')
-ORDER BY PostalCode;
 GO
 
 -- Przykład: 12345 lub 12345-6789 (opcjonalne rozszerzenie)
-SELECT TOP 5 AddressLine1, City, PostalCode
+SELECT AddressLine1, City, PostalCode
 FROM DemoRegex.Address
 WHERE REGEXP_LIKE(PostalCode, '^\d{5}(-\d{4})?$')
-ORDER BY PostalCode;
 GO
+
+
+SELECT AddressLine1, City, PostalCode
+FROM DemoRegex.Address
+WHERE REGEXP_LIKE(PostalCode, '^\d{5}(-\d{4})?$')
+EXCEPT
+SELECT AddressLine1, City, PostalCode
+FROM DemoRegex.Address
+WHERE REGEXP_LIKE(PostalCode, '^\d{5}$')
+
+
+
 
 
 -- Przykład: wyszukanie tylko polskich kodów pocztowych (format 30-198)
@@ -163,20 +153,21 @@ GO
 -- 's' = let . match \n
 
 -- Case-sensitive (domyślnie)
-SELECT COUNT(*) AS ProductCount
+SELECT *
 FROM Production.Product
-WHERE REGEXP_LIKE(Name, 'black');
+WHERE REGEXP_LIKE(Name, 'black')
+--WHERE REGEXP_LIKE(Name, 'black', 's')
 GO
 
 -- Case-insensitive
-SELECT COUNT(*) AS ProductCount
+SELECT *
 FROM Production.Product
 WHERE REGEXP_LIKE(Name, 'black', 'i');
 GO
 
 
 -- ============================================
--- 4. REGEXP_LIKE zwraca BIT - ważna pułapka
+-- 4. REGEXP_LIKE zwraca BIT 
 
 -- REGEX_LIKE zwraca TRUE/FALSE, więc można go użyć bezpośrednio w SELECT lub WHERE
 -- to warunek/ predykat logiczny, a nie typowa funkcja zwracająca wartość
@@ -205,10 +196,12 @@ WHERE sp.CountryRegionCode = 'PL';
 -- POPRAWNIE: CASE bez porównania
 SELECT PostalCode,
     CASE WHEN REGEXP_LIKE(PostalCode, '^\d{2}-\d{3}$') THEN 1 ELSE 0 END AS IsValidPL
-FROM Person.Address a
-INNER JOIN Person.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
+FROM DemoRegex.Address a
+INNER JOIN DemoRegex.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
 WHERE sp.CountryRegionCode = 'PL';
 GO
+
+
 
 -- POPRAWNIE2: IIF (najkrócej)
 SELECT PostalCode,
@@ -258,6 +251,16 @@ GO
 
 DECLARE @email_pattern nvarchar(200) = '^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
 
+-- Sprawdzenie które maile są poprawne (1) a które nie (0)
+SELECT 
+    EmailAddress,
+    IIF(REGEXP_LIKE(EmailAddress, @email_pattern), 1, 0) AS IsValidEmail
+FROM DemoRegex.Emails
+GO
+
+
+DECLARE @email_pattern nvarchar(200) = '^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+
 -- Sprawdzenie poprawnych emaili
 SELECT 
     EmailAddress,
@@ -292,10 +295,11 @@ GO
 
 -- Walidacja numerów telefonów
 -- Format: (123) 456-7890 lub 123-456-7890
-SELECT TOP 10
+SELECT 
     PhoneNumber,
     PhoneNumberTypeID,
     CASE 
+        WHEN REGEXP_LIKE(PhoneNumber, '^1 \(\d{2}\) \d{3} \d{3}-\d{4}$') THEN 'Format: 1 (11) 123 456-789'
         WHEN REGEXP_LIKE(PhoneNumber, '^\(\d{3}\) \d{3}-\d{4}$') THEN 'Format: (123) 456-7890'
         WHEN REGEXP_LIKE(PhoneNumber, '^\d{3}-\d{3}-\d{4}$') THEN 'Format: 123-456-7890'
         ELSE 'Inny format'
@@ -372,7 +376,7 @@ FROM DemoRegex.Address a
 INNER JOIN DemoRegex.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
 --WHERE sp.CountryRegionCode IN ('US', 'CA', 'FR', 'PL')
 --WHERE sp.CountryRegionCode = 'FR'
-WHERE sp.CountryRegionCode = 'PL'
+--WHERE sp.CountryRegionCode = 'PL'
 ORDER BY sp.CountryRegionCode, a.PostalCode;
 GO
 
