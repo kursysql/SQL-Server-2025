@@ -30,6 +30,7 @@
 */
 
 
+
 USE AdventureWorks2025;
 GO
 
@@ -60,6 +61,32 @@ WHERE REGEXP_LIKE(EmailAddress, '@adventure-works\.com$')
 ORDER BY LastName;
 GO
 
+
+
+SET STATISTICS TIME ON
+SET STATISTICS TIME OFF
+
+-- LIKE: Prosta składnia, ograniczone możliwości
+SELECT 
+    FirstName,
+    LastName,
+    EmailAddress
+FROM Person.Person AS p
+INNER JOIN Person.EmailAddress AS e ON p.BusinessEntityID = e.BusinessEntityID
+WHERE EmailAddress LIKE '%@adventure-works.com'
+ORDER BY LastName;
+GO
+
+-- REGEXP_LIKE: Wyrażenia regularne, pełna kontrola
+SELECT
+    FirstName,
+    LastName,
+    EmailAddress
+FROM Person.Person AS p
+INNER JOIN Person.EmailAddress AS e ON p.BusinessEntityID = e.BusinessEntityID
+WHERE REGEXP_LIKE(EmailAddress, '@adventure-works\.com$')
+ORDER BY LastName;
+GO
 
 
 
@@ -155,8 +182,8 @@ GO
 -- Case-sensitive (domyślnie)
 SELECT *
 FROM Production.Product
-WHERE REGEXP_LIKE(Name, 'black')
---WHERE REGEXP_LIKE(Name, 'black', 's')
+--WHERE REGEXP_LIKE(Name, 'black')
+WHERE REGEXP_LIKE(Name, 'black', 'c')
 GO
 
 -- Case-insensitive
@@ -374,7 +401,7 @@ SELECT
     END AS ValidationResult
 FROM DemoRegex.Address a
 INNER JOIN DemoRegex.StateProvince sp ON a.StateProvinceID = sp.StateProvinceID
---WHERE sp.CountryRegionCode IN ('US', 'CA', 'FR', 'PL')
+--WHERE sp.CountryRegionCode IN ('US')
 --WHERE sp.CountryRegionCode = 'FR'
 --WHERE sp.CountryRegionCode = 'PL'
 ORDER BY sp.CountryRegionCode, a.PostalCode;
