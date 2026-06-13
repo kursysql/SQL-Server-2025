@@ -30,6 +30,7 @@ DROP TABLE IF EXISTS DemoRegex.BusinessEntity;
 DROP TABLE IF EXISTS DemoRegex.Address;
 DROP TABLE IF EXISTS DemoRegex.StateProvince;
 DROP TABLE IF EXISTS DemoRegex.PersonPhone;
+DROP TABLE IF EXISTS DemoRegex.Emails;
 GO
 
 IF EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'DemoRegex')
@@ -53,7 +54,7 @@ END
 GO
 
 
-DROP TABLE IF EXISTS #Emails;
+
 GO
 
 
