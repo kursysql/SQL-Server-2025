@@ -168,7 +168,7 @@ GO
 
 
 
--- B/ Usuwanie separatorów z numeru telefonu
+-- B/ Usuwanie części nazwy użytkownika z adresu email
 
 SELECT TOP 20
     EmailAddress,
@@ -180,7 +180,7 @@ SELECT TOP 20
     --     ^      -- od początku tekstu
     --     .*     -- dowolne znaki
     --     @      -- aż do znaku @
-    REGEXP_REPLACE(EmailAddress, '^.*@','') AS Domain_Regex 
+    REGEXP_REPLACE(EmailAddress, '^.*@', '') AS Domain_Regex 
 
 FROM DemoRegex.EmailAddress
 WHERE REGEXP_LIKE(EmailAddress, '^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
@@ -212,6 +212,8 @@ GO
 -- ============================================
 -- 4. Porównanie wydajności
 -- ============================================
+
+DROP TABLE IF EXISTS #BigData;
 
 SELECT TOP (1000000)
     ROW_NUMBER() OVER (ORDER BY (SELECT NULL)) AS Id,
@@ -297,6 +299,7 @@ SELECT
 
     -- c = case-sensitive
     -- zamienione zostanie tylko małe abc
+    REGEXP_REPLACE(@SourceText, 'abc', 'XXX', 1, 0) AS Case_Sensitive,
     REGEXP_REPLACE(@SourceText, 'abc', 'XXX', 1, 0, 'c') AS Case_Sensitive,
 
     -- i = case-insensitive
@@ -310,12 +313,14 @@ GO
 
 DECLARE @SourceText varchar(50) = N'ERROR pierwszy
 INFO drugi
-ERROR trzeci';
+ERROR trzeci
+ ERROR czwarty';
 
 SELECT
     @SourceText AS SourceText,
 
     -- bez m: ^ dotyczy początku całego tekstu
+    REGEXP_REPLACE(@SourceText, '^ERROR', 'WARN', 1, 0) AS Without_Multiline,
     REGEXP_REPLACE(@SourceText, '^ERROR', 'WARN', 1, 0, 'c') AS Without_Multiline,
 
     -- z m: ^ dotyczy początku każdej linii

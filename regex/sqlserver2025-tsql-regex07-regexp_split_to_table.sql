@@ -92,9 +92,8 @@ GO
 
 SELECT *
     -- można taż użyć operatora +, aby rozdzielać po jednym lub więcej separatorów z rzędu
-FROM REGEXP_SPLIT_TO_TABLE('ABC---123,,,DEF;;;456', '[-,;]')
+FROM REGEXP_SPLIT_TO_TABLE('ABC---123,,,DEF;;456', '[-,;]')
 GO
-
 
 SELECT *
      -- ...w ten sposób
@@ -163,7 +162,7 @@ DECLARE @Csv varchar(200) =
 
 
 SELECT
-    -- [^,]+ - dopasowuje ciąg znaków, który nie zawiera przecinka (czyli pojedynczą kolumnę)
+    -- [^,]+ - dopasowuje ciąg znaków, który nie zawiera przecinka     
     REGEXP_SUBSTR(value, '[^,]+', 1, 1) AS Id,
     REGEXP_SUBSTR(value, '[^,]+', 1, 2) AS FirstName,
     REGEXP_SUBSTR(value, '[^,]+', 1, 3) AS LastName,
@@ -175,7 +174,8 @@ GO
 
 
 
--- CSV - tekst w cudzysłowach może zawierać przecinki, więc trzeba to uwzględnić w regexie
+-- CSV - tekst w cudzysłowach może zawierać przecinki, 
+-- więc trzeba to uwzględnić w regexie
 DECLARE @Csv varchar(200) =
 '1,"Jan","Kowalski","Warszawa"
 2,"Anna, Maria","Nowak","Krakow"

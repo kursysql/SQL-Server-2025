@@ -67,6 +67,7 @@ SELECT SUBSTRING(
 
     -- @(.+)$ = znak @, potem grupa z domeną do końca tekstu
     -- group = 1 oznacza: zwróć tylko zawartość pierwszej grupy
+    REGEXP_SUBSTR(@AdresEmail, '@(.+)$') AS Domain_Regex,
     REGEXP_SUBSTR(@AdresEmail, '@(.+)$', 1, 1, 'i', 1) AS Domain_Regex
 GO
 
@@ -101,6 +102,7 @@ SELECT -- przykład z jedną grupą
     @Phone AS PhoneNumber,
 
     -- całe dopasowanie
+    REGEXP_SUBSTR(@Phone, '\+(\d{2})') AS WholeMatch,
     REGEXP_SUBSTR(@Phone, '\+(\d{2})', 1, 1, 'c', 0) AS WholeMatch,
 
     -- pierwsza grupa
@@ -113,6 +115,7 @@ DECLARE @Phone varchar(20) = '+48 501 234 567';
 
 SELECT -- przykład z dwoma grupami
     @Phone AS PhoneNumber,
+    REGEXP_SUBSTR(@Phone, '\+(\d{2}) (\d{3})') AS WholeMatch,
     REGEXP_SUBSTR(@Phone, '\+(\d{2}) (\d{3})', 1, 1, 'c', 0) AS WholeMatch,
 
     REGEXP_SUBSTR(@Phone, '\+(\d{2}) (\d{3})', 1, 1, 'c', 1) AS CountryCode,
@@ -164,6 +167,7 @@ DECLARE @SourceText varchar(50) = 'ABC-123-DEF-456';
 SELECT
     @SourceText AS SourceText,
     -- domyślnie occurrence = 1, więc znajdzie pierwszą liczbę (123)
+    REGEXP_SUBSTR(@SourceText, '\d+', 1) AS FirstNumber,
     REGEXP_SUBSTR(@SourceText, '\d+', 1, 1) AS FirstNumber,
 
     -- occurrence = 2, więc znajdzie drugą liczbę (456)
