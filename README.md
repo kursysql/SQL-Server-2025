@@ -1,8 +1,14 @@
 <a href="https://www.kursysql.pl"><img src="https://www.kursysql.pl/wp-content/uploads/2022/03/Frame-3.png" title="KursySQL.pl" alt="KursySQL.pl"></a>
 # SQL Server 2025
-This repository contains demo files for SQL Server 2025 
-
 <a href="https://www.youtube.com/playlist?list=PLLbGIlLHMPz3tpq7OiUfLQg4O3O1B8L7a">YouTube playlist</a>
+
+
+## SQLDay Lite 2026 - Gdańsk
+- **SQLDayDemo - SQL Server 2025** - instrukcja przygotowania środowiska przed warsztatami
+	- [sqldaydemo-setup.md](ai/sqldaydemo-setup.md) - przygotowanie środowiska (w tym konfiguracja HTTPS dla Ollama)
+	- [db-sqldaydemo-setup.sql](ai/db-sqldaydemo-setup.sql) - baza przykładowa
+
+---
 
 ## INSTALACJA
   - **[SQL Server 2025 - jak pobrać i zainstalować](https://youtu.be/oNSRwxrBvpg)**
