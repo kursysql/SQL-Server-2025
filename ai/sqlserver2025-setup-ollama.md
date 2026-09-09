@@ -69,7 +69,7 @@ Caddy będzie pełnił rolę reverse proxy, udostępniając Ollamę przez https:
 
 (**curl** służy do wysyłania żądań HTTP/HTTPS z wiersza poleceń)
 
-	curl -k http://localhost:11434
+	curl http://localhost:11434
 
 ![ollama_http_connect](img/ollama_http_connect.png)
  

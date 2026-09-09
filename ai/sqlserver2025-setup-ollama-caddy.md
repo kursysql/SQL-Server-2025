@@ -14,7 +14,7 @@ Sprawdź, czy lokalny endpoint Ollama działa przez HTTP:
 
 (**curl** służy do wysyłania żądań HTTP/HTTPS z wiersza poleceń)
 
-	curl -k http://localhost:11434
+	curl http://localhost:11434
 
 ![ollama_http_connect](img/ollama_http_connect.png)
  
@@ -150,7 +150,7 @@ Utwórz plik C:\SQL25_workshop\Caddyfile o poniższej zawartości:
 
 Utwórz nowe okno wiersza poleceń i sprawdź czy możesz połączyć się z Ollama przez Caddy:
 
-	curl -k https://localhost:11435
+	curl https://localhost:11435
 
 ![ollama_running](img/ollama_running.png)
 
