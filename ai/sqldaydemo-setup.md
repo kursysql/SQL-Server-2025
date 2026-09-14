@@ -30,8 +30,8 @@ Poradnik: https://youtu.be/iulNFzgf3NA
 
 ## 5. Zainstaluj Ollama
 
-Postępuj zgodnie z instrukcją: [sqlserver2025-setup-ollama.md](sqlserver2025-setup-ollama.md)
+Postępuj zgodnie z instrukcją: [sqlserver2025-setup1-ollama.md](sqlserver2025-setup1-ollama.md)
 
 ## 6. Caddy (konfiguracja HTTPS)
 
-Postępuj zgodnie z instrukcją: [sqlserver2025-setup-ollama-caddy.md](sqlserver2025-setup-ollama-caddy.md)
+Postępuj zgodnie z instrukcją: [sqlserver2025-setup2-ollama-caddy.md](sqlserver2025-setup2-ollama-caddy.md)

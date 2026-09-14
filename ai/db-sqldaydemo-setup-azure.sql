@@ -1,21 +1,16 @@
-USE master;
-
-
-ALTER DATABASE SQLDayDemo
-SET SINGLE_USER
-WITH ROLLBACK IMMEDIATE;
-GO
-
 
 
 SET NOCOUNT ON;
 SET XACT_ABORT ON;
 
-IF DB_ID(N'SQLDayDemo') IS NULL CREATE DATABASE SQLDayDemo;
+IF (SELECT DB_NAME())<>'SQLDayDemo'
+BEGIN
+    RAISERROR('This script must be run in the SQLDayDemo database context.', 16, 1);
+
+    SET NOEXEC ON;
+END
 GO
 
-USE SQLDayDemo;
-GO
 
 DROP TABLE IF EXISTS dbo.SessionSpeaker;
 DROP TABLE IF EXISTS dbo.SpeakerEditionProfile;
@@ -33,6 +28,7 @@ DROP TABLE IF EXISTS dbo.Language;
 DROP TABLE IF EXISTS dbo.EventEdition;
 DROP TABLE IF EXISTS dbo.TopicTrack;
 GO
+
 
 CREATE TABLE dbo.EventEdition (
     EventEditionId smallint NOT NULL CONSTRAINT PK_EventEdition PRIMARY KEY,
@@ -138,11 +134,7 @@ CREATE INDEX IX_SessionSpeaker_Speaker ON dbo.SessionSpeaker(SpeakerId);
 GO
 
 
-USE master
-GO
 
-USE SQLDayDemo;
-GO
 SET NOCOUNT ON;
 SET XACT_ABORT ON;
 BEGIN TRANSACTION;
@@ -3579,6 +3571,7 @@ GO
 
 
 
+
 CREATE OR ALTER VIEW dbo.vw_SessionSearchDocument
 AS
 SELECT
@@ -3612,13 +3605,5 @@ OUTER APPLY (
     WHERE st.SessionId = s.SessionId
 ) AS tg;
 GO
-
-
-
-ALTER DATABASE SQLDayDemo
-SET MULTI_USER;
-GO
-
-
 
 
