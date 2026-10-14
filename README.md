@@ -3,10 +3,20 @@
 <a href="https://www.youtube.com/playlist?list=PLLbGIlLHMPz3tpq7OiUfLQg4O3O1B8L7a">YouTube playlist</a>
 
 
-## SQLDay Lite 2026 - Gdańsk
-- **SQLDayDemo - SQL Server 2025** - instrukcja przygotowania środowiska przed warsztatami
-	- [sqldaydemo-setup.md](ai/sqldaydemo-setup.md) - przygotowanie środowiska (w tym konfiguracja HTTPS dla Ollama)
-	- [db-sqldaydemo-setup.sql](ai/db-sqldaydemo-setup.sql) - baza przykładowa
+
+## AI-ready SQL Server 2025 - LIVE
+
+Materiały z bezpłatnego spotkania LIVE poświęconego wykorzystaniu AI w SQL Server 2025.
+
+📅 **14 października 2026**  
+🕖 **19:00**  
+💻 **LIVE online**
+
+👉 [Materiały, skrypty i plan spotkania](./ai/live-sql25-ai-ready.md)
+
+W folderze [`ai`](./ai) znajdują się również pliki potrzebne do przygotowania środowiska demonstracyjnego, m.in. konfiguracja **Ollama**, **Caddy**, przykłady `sp_invoke_external_rest_endpoint` oraz baza **SQLDayDemo**.
+
+
 
 ---
 
