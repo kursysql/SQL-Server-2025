@@ -1,7 +1,7 @@
 /*
 
 	LIVE SQL AI-READY SQL SERVER 2025
-	Demo 4: VECTOR i semantic search
+	Demo 6 RAG
 
 	Tomasz Libera | MVP Data Platform
 	libera@kursysql.pl
@@ -20,7 +20,6 @@ USE SqlDayDemo;
 GO
 
 /*
-    DEMO 5
     Łączymy wszystko w jeden proces RAG.
 
     1. pytanie użytkownika

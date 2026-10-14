@@ -63,23 +63,23 @@ SELECT @payload AS Payload
 
     W naszym przykładzie jest to lokalna Ollama.
 */
-EXEC sp_invoke_external_rest_endpoint
-    @url = N'https://localhost:11435/api/generate',
-    @method = 'POST',
-    @payload = @payload,
-    @response = @response OUTPUT;
-
-
 --EXEC sp_invoke_external_rest_endpoint
 --    @url = N'https://localhost:11435/api/generate',
 --    @method = 'POST',
 --    @payload = @payload,
---    @timeout = 120,
 --    @response = @response OUTPUT;
 
 
+EXEC sp_invoke_external_rest_endpoint
+    @url = N'https://localhost:11435/api/generate',
+    @method = 'POST',
+    @payload = @payload,
+    @timeout = 190,
+    @response = @response OUTPUT;
 
-SELECT @answer AS AnswerRaw
+
+
+SELECT @response AS ResponseRaw
 
 /*
     Pobieramy właściwą odpowiedź modelu z odpowiedzi JSON.

@@ -97,7 +97,7 @@ EXEC @retval = sys.sp_invoke_external_rest_endpoint
     @url = N'https://localhost:11435/api/generate',
     @method = 'POST',
     @payload = @payload,
-    @timeout = 120,
+    @timeout = 190,
     @response = @response OUTPUT;
 
 

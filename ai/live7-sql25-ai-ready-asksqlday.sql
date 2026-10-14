@@ -1,50 +1,6 @@
 USE SqlDayDemo;
 GO
 
-/*
-    AI-ready SQL Server 2025 - LIVE
-    --------------------------------
-    dbo.AskSQLDay
-
-    Cel:
-      Połączyć w jeden proces wszystkie elementy pokazywane podczas LIVE:
-
-        pytanie użytkownika
-              ↓
-        embedding pytania
-              ↓
-        wyszukiwanie semantyczne w SQL Server
-              ↓
-        TOP N najbardziej trafnych sesji
-              ↓
-        kontekst dla LLM
-              ↓
-        odpowiedź modelu llama3.2
-
-    Założenia:
-      - baza: SqlDayDemo
-      - dbo.SessionDetails
-      - dbo.SessionEmbedding
-            SessionId
-            EmbeddingSource
-            Embedding VECTOR(384)
-      - dbo.vw_SessionSearchDocument
-            SessionId
-            Title
-            SearchDocument
-      - model embeddingowy zarejestrowany w SQL Server:
-            ollama_all_minilm
-      - lokalna Ollama:
-            https://localhost:11435
-      - model LLM:
-            llama3.2
-
-    Uwaga:
-      To jest pełna implementacja używana przez skrypt LIVE nr 6.
-      Podczas LIVE nie analizujemy jej linia po linii - interesuje nas
-      przede wszystkim przepływ RAG i efekt końcowy.
-*/
-
 CREATE OR ALTER PROCEDURE dbo.usp_AskSQLDay
     @Question nvarchar(max),
     @TopN     int = 5,
