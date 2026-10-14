@@ -1,18 +1,20 @@
 USE master;
 
 
-ALTER DATABASE SQLDayDemo
-SET SINGLE_USER
-WITH ROLLBACK IMMEDIATE;
+
+IF DB_ID(N'SQLDayDemo') IS NULL 
+CREATE DATABASE SQLDayDemo;
 GO
 
+
+ALTER DATABASE SQLDayDemo SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
 
 
 SET NOCOUNT ON;
 SET XACT_ABORT ON;
 
-IF DB_ID(N'SQLDayDemo') IS NULL CREATE DATABASE SQLDayDemo;
-GO
+
 
 USE SQLDayDemo;
 GO
@@ -24,6 +26,7 @@ DROP TABLE IF EXISTS dbo.SessionTag;
 DROP TABLE IF EXISTS dbo.SessionDetails;
 
 DROP TABLE IF EXISTS dbo.SessionEmbedding;
+
 
 DROP TABLE IF EXISTS dbo.Tag;
 
@@ -3578,6 +3581,16 @@ GO
 
 
 
+CREATE TABLE dbo.SessionEmbedding
+(
+    SessionId int NOT NULL,
+    EmbeddingSource varchar(30) NOT NULL, -- będzie przechowywać nazwę źródła embeddingu
+    EmbeddedAt datetime2(0) NOT NULL CONSTRAINT DF_SessionEmbedding_EmbeddedAt DEFAULT (sysdatetime()),
+    Embedding vector(384) NOT NULL
+);
+GO
+
+
 
 CREATE OR ALTER VIEW dbo.vw_SessionSearchDocument
 AS
@@ -3614,6 +3627,207 @@ OUTER APPLY (
 GO
 
 
+/*
+    DODATEK DO SQLDayDemo - dane do demonstracji wydajności JSON (Mod02E)
+
+    Tworzymy dwie tabele zawierające logicznie te same dokumenty:
+
+        dbo.SessionDocs_Text  - JSON przechowywany jako nvarchar(max)
+        dbo.SessionDocs_Json  - natywny typ json (SQL Server 2025)
+
+    Dane bazują na rzeczywistych sesjach SQLDay.
+    Każda sesja jest powielona 200 razy, żeby zbiór był wystarczająco duży
+    do demonstracji planów wykonania i indeksowania.
+*/
+
+USE SQLDayDemo;
+GO
+
+DROP TABLE IF EXISTS dbo.SessionDocs_Text;
+DROP TABLE IF EXISTS dbo.SessionDocs_Json;
+GO
+
+CREATE TABLE dbo.SessionDocs_Text
+(
+    DocId           int           NOT NULL CONSTRAINT PK_SessionDocs_Text PRIMARY KEY CLUSTERED,
+    SourceSessionId int           NOT NULL,
+    CopyNo          smallint      NOT NULL,
+    SessionDoc      nvarchar(max) NOT NULL
+);
+GO
+
+CREATE TABLE dbo.SessionDocs_Json
+(
+    DocId           int      NOT NULL CONSTRAINT PK_SessionDocs_Json PRIMARY KEY CLUSTERED,
+    SourceSessionId int      NOT NULL,
+    CopyNo          smallint NOT NULL,
+    SessionDoc      json     NOT NULL
+);
+GO
+
+
+-- Najpierw przygotowujemy jeden dokument bazowy dla każdej sesji.
+-- Tagi są tablicą wartości, a speakers - tablicą obiektów.
+DROP TABLE IF EXISTS #SessionDocBase;
+GO
+
+CREATE TABLE #SessionDocBase
+(
+    SessionId       int            NOT NULL PRIMARY KEY,
+    Title           nvarchar(500)  NOT NULL,
+    [Description]   nvarchar(max)  NULL,
+    EventName       nvarchar(50)   NOT NULL,
+    EditionYear     smallint       NOT NULL,
+    LevelName       nvarchar(100)  NULL,
+    LanguageName    nvarchar(50)   NULL,
+    TrackName       nvarchar(150)  NULL,
+    Room            nvarchar(150)  NULL,
+    FavoritedCount  int            NOT NULL,
+    Tags            json           NOT NULL,
+    Speakers        json           NOT NULL
+);
+GO
+
+INSERT INTO #SessionDocBase
+(
+    SessionId,
+    Title,
+    [Description],
+    EventName,
+    EditionYear,
+    LevelName,
+    LanguageName,
+    TrackName,
+    Room,
+    FavoritedCount,
+    Tags,
+    Speakers
+)
+SELECT
+    s.SessionId,
+    s.Title,
+    s.[Description],
+    e.EventName,
+    e.EditionYear,
+    sl.LevelName,
+    l.LanguageName,
+    tt.TrackName,
+    s.Room,
+    s.FavoritedCount,
+    COALESCE(tg.Tags, CAST(N'[]' AS json)) AS Tags,
+    COALESCE(sp.Speakers, CAST(N'[]' AS json)) AS Speakers
+FROM dbo.SessionDetails AS s
+JOIN dbo.EventEdition AS e
+    ON e.EventEditionId = s.EventEditionId
+LEFT JOIN dbo.SessionLevel AS sl
+    ON sl.SessionLevelId = s.SessionLevelId
+LEFT JOIN dbo.Language AS l
+    ON l.LanguageId = s.LanguageId
+LEFT JOIN dbo.TopicTrack AS tt
+    ON tt.TopicTrackId = s.TopicTrackId
+OUTER APPLY
+(
+    SELECT
+        JSON_ARRAYAGG(t.TagName ORDER BY t.TagName RETURNING json) AS Tags
+    FROM dbo.SessionTag AS st
+    JOIN dbo.Tag AS t
+        ON t.TagId = st.TagId
+    WHERE st.SessionId = s.SessionId
+) AS tg
+OUTER APPLY
+(
+    SELECT
+        JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'speakerId': p.SpeakerId,
+                'name':      p.DisplayName
+                RETURNING json
+            )
+            ORDER BY ss.SpeakerOrder
+            RETURNING json
+        ) AS Speakers
+    FROM dbo.SessionSpeaker AS ss
+    JOIN dbo.Speaker AS p
+        ON p.SpeakerId = ss.SpeakerId
+    WHERE ss.SessionId = s.SessionId
+) AS sp;
+GO
+
+
+-- Około kilkadziesiąt tysięcy dokumentów.
+-- copyNo trafia również do dokumentu, więc kopie nie są identyczne.
+INSERT INTO dbo.SessionDocs_Text
+(
+    DocId,
+    SourceSessionId,
+    CopyNo,
+    SessionDoc
+)
+SELECT
+    (g.value - 1) * 1000 + b.SessionId AS DocId,
+    b.SessionId,
+    CONVERT(smallint, g.value) AS CopyNo,
+    CONVERT(nvarchar(max),
+        JSON_OBJECT(
+            'documentId':      (g.value - 1) * 1000 + b.SessionId,
+            'copyNo':          g.value,
+            'sessionId':       b.SessionId,
+            'title':           b.Title,
+            'description':     b.[Description],
+            'event':           JSON_OBJECT(
+                                   'name': b.EventName,
+                                   'year': b.EditionYear
+                                   RETURNING json
+                               ),
+            'level':           b.LevelName,
+            'language':        b.LanguageName,
+            'track':           b.TrackName,
+            'room':            b.Room,
+            'favoritedCount':  b.FavoritedCount,
+            'tags':            b.Tags,
+            'speakers':        b.Speakers
+            RETURNING json
+        )
+    ) AS SessionDoc
+FROM #SessionDocBase AS b
+CROSS JOIN GENERATE_SERIES(1, 200) AS g;
+GO
+
+
+-- Ten sam dokument zapisujemy jako natywny typ json.
+INSERT INTO dbo.SessionDocs_Json
+(
+    DocId,
+    SourceSessionId,
+    CopyNo,
+    SessionDoc
+)
+SELECT
+    DocId,
+    SourceSessionId,
+    CopyNo,
+    CAST(SessionDoc AS json)
+FROM dbo.SessionDocs_Text;
+GO
+
+
+CREATE TABLE dbo.SessionRegistration
+(
+    RegistrationId int IDENTITY
+        CONSTRAINT PK_SessionRegistration PRIMARY KEY,
+
+    SessionId int NOT NULL,
+    AttendeeName nvarchar(200) NOT NULL,
+    RegistrationStatus varchar(20) NOT NULL,
+    RegisteredAt datetime2(0) NOT NULL
+        CONSTRAINT DF_SessionRegistration_RegisteredAt
+        DEFAULT SYSDATETIME(),
+    ModifiedAt datetime2(0) NULL,
+
+    CONSTRAINT FK_SessionRegistration_Session
+        FOREIGN KEY (SessionId)
+        REFERENCES dbo.SessionDetails(SessionId)
+);
 
 ALTER DATABASE SQLDayDemo
 SET MULTI_USER;
