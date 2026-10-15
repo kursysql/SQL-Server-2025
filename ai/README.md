@@ -1,6 +1,6 @@
 <a href="https://www.kursysql.pl"><img src="https://www.kursysql.pl/wp-content/uploads/2022/03/Frame-3.png" title="KursySQL.pl" alt="KursySQL.pl"></a>
 
-# SQLDayDemo - SQL Server 2025
+# Przygotowanie środowiska
 Instrukcja przygotowania środowiska przed warsztatami 
 
 Na końcu dokumentu znajdują się instrukcję jak usunąć konfigurację HTTPS utworzoną na potrzeby połączenia SQL Server z Ollama.
